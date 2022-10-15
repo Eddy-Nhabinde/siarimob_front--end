@@ -22,9 +22,6 @@ export default function TransitionsModal({ open, setOpen }) {
     };
 
     return (
-        //         <Avatar>H</Avatar>
-        // <Avatar className={classes.orange}>N</Avatar>
-        // <Avatar className={classes.purple}>OP</Avatar>
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
