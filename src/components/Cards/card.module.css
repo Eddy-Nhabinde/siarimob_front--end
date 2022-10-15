@@ -1,0 +1,14 @@
+.titulos,
+.values {
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.values span{
+    font-weight:lighter;
+}
