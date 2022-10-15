@@ -8,7 +8,8 @@ import { LoginContext } from '../../contexts/loginContext';
 
 export default function ButtonAppBar() {
     const { setLoginContext } = useContext(LoginContext)
-    const [login, SetLogin] = setLoginContext
+    const [, SetLogin] = setLoginContext
+
     return (
         <AppBar position="static">
             <Toolbar style={{ backgroundColor: 'rgb(71, 106, 209)' }}>
