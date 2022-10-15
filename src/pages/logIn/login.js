@@ -1,11 +1,15 @@
 import styles from './login.module.css'
 import Input from '../../components/textField/textField'
 import { Button } from '@material-ui/core'
-import { useState } from 'react'
+import { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { LoginContext } from '../../contexts/loginContext'
 
 
 export function Login() {
-    const [login, setLogin] = useState(true)
+    const { setLoginContext } = useContext(LoginContext)
+    const [login,] = setLoginContext
+
     return (
         <div className={styles.container}>
             <img src={require('../../assets/foto.jpg')} />
@@ -21,7 +25,9 @@ export function Login() {
                 </div>
                 <a>Esqueceu senha?</a>
                 <Button style={{ width: '175px', marginTop: '40px', marginLeft: '85px' }} size='small' variant="contained" color="primary" disableElevation>
-                    <span style={{ textTransform: 'capitalize' }}>Entrar</span>
+                    <Link to='/home' style={{ textDecoration: 'none', color: 'black', margin: '0px' }}>
+                        <span style={{ textTransform: 'capitalize' }}>Entrar</span>
+                    </Link>
                 </Button>
             </div>
                 :

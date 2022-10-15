@@ -22,6 +22,10 @@ import MediaCard from '../../components/Cards/card'
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Home } from '../../pages/home/home';
+import { Login } from '../../pages/logIn/login';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -133,7 +137,7 @@ export default function Menu() {
                     </IconButton>
                 </div>
                 <Divider />
-                <List> 
+                <List>
                     <ListItem button>
                         <ListItemIcon><StorefrontIcon /></ListItemIcon>
                         <ListItemText primary={'Mercado'} />
@@ -158,6 +162,10 @@ export default function Menu() {
                 })}
             >
                 <div className={classes.drawerHeader} />
+                {/* <Routes>
+                    <Route path='/' element={<Home />} ></Route>
+                    <Route path='/Details' element={<Login />} ></Route>
+                </Routes> */}
                 <Filter />
                 <div className={styles.container} >
                     <MediaCard />
