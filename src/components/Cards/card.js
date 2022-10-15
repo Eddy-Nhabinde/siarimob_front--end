@@ -101,13 +101,13 @@ export default function MediaControlCard() {
         <Card className={classes.root}>
             <div className={classes.details}>
                 <CardContent className={classes.content}>
-                    <Typography style={{ marginLeft: '-60px', fontSize: '20px', marginBottom: '10px' }} component="h6" variant="h5">
+                    <Typography style={{  fontSize: '20px', marginBottom: '10px' }} component="h6" variant="h5">
                         Bairro
                     </Typography>
-                    <Typography style={{ marginLeft: '-60px', fontSize: '20px', marginBottom: '10px' }} component="h5" variant="h5">
+                    <Typography style={{  fontSize: '20px', marginBottom: '10px' }} component="h5" variant="h5">
                         Tipo 1
                     </Typography>
-                    <Typography style={{ marginLeft: '-10px', fontSize: '20px', marginBottom: '10px' }} component="h5" variant="h5">
+                    <Typography style={{ fontSize: '20px', marginBottom: '10px' }} component="h5" variant="h5">
                         3000.00MT
                     </Typography>
                 </CardContent>
