@@ -1,75 +1,19 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
 import styles from './propriedades.module.css'
 import { Filter } from '../../components/filterComponent/filter';
-const columns = [
-    { id: 'name', label: '#', minWidth: 170 },
-    { id: 'code', label: 'Codigo', minWidth: 100 },
-    {
-        id: 'population',
-        label: 'Tipo',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'size',
-        label: 'Bairro',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'density',
-        label: 'Estado',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toFixed(2),
-    },
-    {
-        id: 'Acc',
-        label: 'Accoes',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toFixed(2),
-    },
-];
-
-function createData(name, code, population, size, Acc) {
-    const density = population / size;
-    return { name, code, population, size, density, Acc };
-}
-
-const rows = [
-    createData('India', 'IN', 1324171354, 3287263, 's'),
-    createData('China', 'CN', 1403500365, 9596961, 's'),
-    createData('Italy', 'IT', 60483973, 301340, 's'),
-    createData('United States', 'US', 327167434, 9833520, 's'),
-    createData('Canada', 'CA', 37602103, 9984670, 's'),
-    createData('Australia', 'AU', 25475400, 7692024, 's'),
-    createData('Germany', 'DE', 83019200, 357578, 's'),
-    createData('Ireland', 'IE', 4857000, 70273, 's'),
-    createData('Mexico', 'MX', 126577691, 1972550, 's'),
-    createData('Japan', 'JP', 126317000, 377973, 's'),
-    createData('France', 'FR', 67022000, 640679, 's'),
-    createData('United Kingdom', 'GB', 67545757, 242495, 's'),
-    createData('Russia', 'RU', 146793744, 17098246, 's'),
-    createData('Nigeria', 'NG', 200962417, 923768, 's'),
-    createData('Brazil', 'BR', 210147125, 8515767, 's'),
-];
+import PlusOneIcon from '@material-ui/icons/PlusOne';
+import SelectM from '../../components/select/select';
+import Input from '../../components/textField/textField';
+import NumberInput from '../../components/numberInput/numberInput';
+import { TextareaAutosize } from '@material-ui/core';
 
 const useStyles = makeStyles({
     root: {
         width: '100%',
-        marginTop:'30px'
+        marginTop: '30px'
     },
     container: {
         maxHeight: 440,
@@ -79,6 +23,7 @@ const useStyles = makeStyles({
 export default function Props() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
+    const [register, SetRegister] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const handleChangePage = (event, newPage) => {
@@ -90,9 +35,13 @@ export default function Props() {
         setPage(0);
     };
 
+
     return (
         <>
-            <Filter />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Filter />
+                <button style={{ height: '40px', marginTop: '25px' }} type="button" class="btn btn-info" onClick={() => { SetRegister(!register);  window.scrollTo({top: 0, left: 0, behavior: 'smooth'});}}> <PlusOneIcon /> Adicionar</button>
+            </div>
             <Paper className={classes.root}>
                 <table class="table" style={{ width: '100%' }}>
                     <thead>
@@ -148,13 +97,43 @@ export default function Props() {
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={rows.length}
+                    // count={rows.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper >
+            <div style={{ display: register ? 'block' : 'none' }} className={styles.container}>
+                <h1 className={styles.h1}>Registe uma nova proprieade</h1>
+                <hr></hr>
+                <div className={styles.select}>
+                    <h1 className={styles.h1} style={{ marginTop: '8px' }}>Localizacao: </h1>
+                    <SelectM Label='Provincia' />
+                    <SelectM Label='Distrito' />
+                    <SelectM Label='Bairro' />
+                </div>
+                <div className={styles.secondDiv}>
+                    <div>
+                        <h1 className={styles.h1} style={{ marginTop: '10px' }}>Tipo:</h1>
+                        <SelectM Label='Tipo' />
+                    </div>
+                    <div className={styles.renda}>
+                        <h1 className={styles.h1} style={{ marginTop: '10px' }}>Renda:</h1>
+                        <NumberInput />
+                    </div>
+                    <div className={styles.foto}>
+                        <h1 className={styles.h1} style={{ marginTop: '10px' }}>Foto:</h1>
+                        <Input tipo='file' />
+                    </div>
+                </div>
+                <h1 className={styles.h1} style={{ marginTop: '10px' }}>Descricao:</h1>
+                <TextareaAutosize style={{ width: '100%', boxShadow: 'none', border: 'none', outline: 'none', marginTop: '5px' }} aria-label="minimum height" minRows={3} />
+                <div style={{ marginLeft: '81%', marginTop: '20px' }}>
+                    <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-danger">Cancelar</button>
+                </div>
+            </div>
         </>
     );
 }
