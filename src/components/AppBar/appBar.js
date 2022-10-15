@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import styles from './appBar.module.css'
-
 
 export default function ButtonAppBar() {
 
@@ -15,7 +14,7 @@ export default function ButtonAppBar() {
                         <span style={{ fontSize: '23px' }}>SIAR-IMOB</span>
                     </Typography>
                     <div>
-                        <span style={{ fontSize: '17px' }}>Login</span>
+                        <span style={{ fontSize: '17px' }} onClick={() => { /*setOpen(true)*/ }}>Login</span>
                         <span style={{ fontSize: '17px' }}>Register</span>
                         <span style={{ fontSize: '17px' }}>About</span>
                     </div>
