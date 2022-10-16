@@ -23,6 +23,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Props from '../../pages/propriedades/propriedades';
+import {Lista} from '../../pages/inquilinos/inquilinos';
 
 const drawerWidth = 240;
 
@@ -149,15 +150,15 @@ export default function MiniDrawer() {
                 </div>
                 <Divider />
                 <List>
-                    <ListItem button onClick={()=>{setcomponent(0)}}>
+                    <ListItem button onClick={() => { setcomponent(0) }}>
                         <ListItemIcon><StorefrontIcon /></ListItemIcon>
                         <ListItemText primary={'Mercado'} />
                     </ListItem>
-                    <ListItem button onClick={()=>{setcomponent(1)}}>
+                    <ListItem button onClick={() => { setcomponent(1) }}>
                         <ListItemIcon><HomeIcon /></ListItemIcon>
                         <ListItemText primary={'Propriedades'} />
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button onClick={() => { setcomponent(2) }}>
                         <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
                         <ListItemText primary={'Inquilinos'} />
                     </ListItem>
@@ -191,8 +192,8 @@ export default function MiniDrawer() {
                     :
                     component == 1 ?
                         <Props />
-                        :
-                        ""}
+                        : component == 2 ?
+                            <Lista /> : ""}
             </main>
         </div>
     );
