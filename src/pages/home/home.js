@@ -12,7 +12,7 @@ export function Home() {
             <Filter />
             <Paper style={{ margin: '20px', marginTop: '35px', maxHeight: '100vh', overflow: 'auto' }}>
                 <div className={styles.head}>
-                    <h1>Propriedades Disponiveis</h1>
+                    <h1 className={styles.h1}>Propriedades Disponiveis</h1>
                 </div>
                 <div className={styles.paper}>
                     <MediaCard />

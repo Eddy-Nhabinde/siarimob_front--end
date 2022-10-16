@@ -12,10 +12,10 @@
     background-color: rgba(238, 238, 238, 0.612);
 }
 
-h1 {
-    width: 280px;
+.h1 {
+    width: 380px;
     font-weight: 500;
-    font-size: 25px;
+    font-size: 23px;
     padding-left: 30px;
     margin-top: 5px;
 }

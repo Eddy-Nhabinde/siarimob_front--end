@@ -15,14 +15,24 @@ export function Login() {
             <img src={require('../../assets/foto.jpg')} />
             {login ? <div className={styles.login}>
                 <h1 className={styles.h1} >SIAR-IMOB</h1>
-                <div className={styles.email} >
-                    <h1>Email</h1>
-                    <Input label='Email' tipo='email' />
-                </div>
-                <div>
-                    <h1>Senha</h1>
-                    <Input label='Password' tipo='password' />
-                </div>
+                <table style={{marginTop:'200px'}}>
+                    <tr>
+                        <td>
+                            <h1>Email</h1>
+                        </td>
+                        <td>
+                            <Input label='Email' tipo='email' />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h1>Senha</h1>
+                        </td>
+                        <td>
+                            <Input label='Email' tipo='email' />
+                        </td>
+                    </tr>
+                </table>
                 <a>Esqueceu senha?</a>
                 <Button style={{ width: '175px', marginTop: '40px', marginLeft: '85px' }} size='small' variant="contained" color="primary" disableElevation>
                     <Link to='/home' style={{ textDecoration: 'none', color: 'black', margin: '0px' }}>
@@ -33,34 +43,56 @@ export function Login() {
                 :
                 <div className={styles.register}>
                     <h1 className={styles.h1} >SIAR-IMOB</h1>
-                    <div className={styles.nome} >
-                        <h1>Nome</h1>
-                        <Input label='Email' tipo='email' />
-                    </div>
-                    <div>
-                        <h1>Apelido</h1>
-                        <Input label='Password' tipo='password' />
-                    </div>
-                    <div  >
-                        <h1>Contacto</h1>
-                        <Input label='Email' tipo='email' />
-                    </div>
-                    <div>
-                        <h1>Email</h1>
-                        <Input label='Password' tipo='password' />
-                    </div>
-                    <div>
-                        <h1>Data Nascimnto</h1>
-                        <Input label='Password' tipo='password' />
-                    </div>
-                    <div>
-                        <h1>Senha</h1>
-                        <Input label='Password' tipo='password' />
-                    </div>
-                    <div>
-                        <h1>Email</h1>
-                        <Input label='Password' tipo='password' />
-                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <h1>Nome</h1>
+                            </td>
+                            <td>
+                                <Input label='Email' tipo='email' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h1>Apelido</h1>
+                            </td>
+                            <td>
+                                <Input label='Email' tipo='email' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h1>Email</h1>
+                            </td>
+                            <td>
+                                <Input label='Email' tipo='email' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h1>Data Nascimnto</h1>
+                            </td>
+                            <td>
+                                <Input label='Email' tipo='email' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h1>Senha</h1>
+                            </td>
+                            <td>
+                                <Input label='Email' tipo='email' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h1>Confirme a senha</h1>
+                            </td>
+                            <td>
+                                <Input label='Email' tipo='email' />
+                            </td>
+                        </tr>
+                    </table>
                     <div className={styles.actions}>
                         <Button style={{ width: '105px', marginTop: '25px', marginLeft: '85px' }} size='small' variant="contained" color="primary" disableElevation>
                             <span style={{ textTransform: 'capitalize' }}>Registar</span>
