@@ -23,7 +23,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Props from '../../pages/propriedades/propriedades';
-import {Lista} from '../../pages/inquilinos/inquilinos';
+import { Lista } from '../../pages/inquilinos/inquilinos';
+import PositionedPopper from '../popver/Popover';
 
 const drawerWidth = 240;
 
@@ -125,9 +126,14 @@ export default function MiniDrawer() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
-                        SIAR-IMOB
-                    </Typography>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                        <Typography variant="h6" noWrap>
+                            SIAR-IMOB
+                        </Typography>
+                        <Typography variant="h6" noWrap>
+                            <PositionedPopper/>
+                        </Typography>
+                    </div>
                 </Toolbar>
             </AppBar>
             <Drawer
