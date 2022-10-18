@@ -7,6 +7,7 @@ import { LoginContext } from '../../contexts/loginContext'
 import RadioButtonsGroup from '../../components/radioB/radioButton'
 import { SaveUser } from '../../requests/save/saveUser'
 import Snack from '../../components/alerts/Alerts'
+import SimpleBackdrop from '../../components/backdrop/backdrop'
 
 export function Login() {
     const { setLoginContext } = useContext(LoginContext)
@@ -14,6 +15,8 @@ export function Login() {
     const { SavingUser } = SaveUser()
     const [normal, setNormal] = useState(false)
     const [open, setOpen] = useState(false)
+    const [message, setMessage] = useState(false)
+    const [openBackdrop, setOpenBackdrop] = useState(false)
     let mail, pass, nome, apelido, contacto, dataNasc, conta, Cpass
 
     const email = (e) => {
@@ -50,13 +53,16 @@ export function Login() {
 
     function Gravar() {
         if (!mail || !pass || !nome || !apelido || !contacto || !dataNasc || !Cpass) {
-            alert(mail)
             setOpen(true)
+            setMessage('Por favor preencha todos os campos')
+        } else if (pass != Cpass) {
+            setMessage('As palavras passes devem ser iguais')
         } else {
+            setOpenBackdrop(true)
             SavingUser(mail, pass, nome, apelido, contacto, dataNasc, conta, Cpass)
         }
     }
-    
+
     return (
         <div className={styles.container}>
             <img src={require('../../assets/foto.jpg')} />
@@ -178,7 +184,8 @@ export function Login() {
                     </div>
                 </div>
             }
-            <Snack open={open} setOpen={setOpen} severity='error' message='Preencha todos os campos' />
+            <Snack open={open} setOpen={setOpen} severity='warning' message={message} />
+            <SimpleBackdrop openBackdrop={openBackdrop} setOpenBackdrop={setOpenBackdrop} />
         </div>
     )
 }
