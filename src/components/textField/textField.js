@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Input({ label, tipo }) {
+export default function Input({ label, tipo, InputChanged }) {
     const classes = useStyles();
 
     return (
@@ -22,6 +22,7 @@ export default function Input({ label, tipo }) {
                     size='small'
                     id="filled-required"
                     variant="outlined"
+                    onChange={InputChanged}
                 />
             </div>
         </form>
