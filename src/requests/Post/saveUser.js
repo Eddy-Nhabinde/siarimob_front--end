@@ -1,6 +1,5 @@
-import Alerts from "../../components/alerts/Alerts"
-
 export const SaveUser = () => {
+
     const Query = () => (
         {
             nome: "Eddy",
@@ -13,7 +12,7 @@ export const SaveUser = () => {
             email: "blba@gmail.com"
         }
     )
-    // conta
+    
     function SavingUser(mail, pass, nome, apelido, contacto, dataNasc, conta, Cpass) {
         
     }

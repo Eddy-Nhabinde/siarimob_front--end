@@ -2,21 +2,25 @@ import styles from './login.module.css'
 import Input from '../../components/textField/textField'
 import { Button } from '@material-ui/core'
 import { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { LoginContext } from '../../contexts/loginContext'
 import RadioButtonsGroup from '../../components/radioB/radioButton'
-import { SaveUser } from '../../requests/save/saveUser'
+import { SaveUser } from '../../requests/Post/saveUser'
 import Snack from '../../components/alerts/Alerts'
 import SimpleBackdrop from '../../components/backdrop/backdrop'
+import { log } from '../../requests/Post/login'
+import { BackdropContext } from '../../contexts/backdropContext'
+import { AlertContext } from '../../contexts/alertContext'
 
 export function Login() {
     const { setLoginContext } = useContext(LoginContext)
+    const { setAlertContext } = useContext(AlertContext)
+    const { setBackdropContext } = useContext(BackdropContext)
     const [login,] = setLoginContext
+    const [, setOpen] = setAlertContext
+    const [, setOpenBackdrop] = setBackdropContext
     const { SavingUser } = SaveUser()
-    const [normal, setNormal] = useState(false)
-    const [open, setOpen] = useState(false)
+    const [normal, setNormal] = useState(true)
     const [message, setMessage] = useState(false)
-    const [openBackdrop, setOpenBackdrop] = useState(false)
     let mail, pass, nome, apelido, contacto, dataNasc, conta, Cpass
 
     const email = (e) => {
@@ -63,9 +67,18 @@ export function Login() {
         }
     }
 
+    function logIn() {
+        if (!mail || !pass) {
+            setOpen(true)
+            setMessage('Por favor preencha todos os campos')
+        } else {
+            log(mail, pass)
+        }
+    }
+
     return (
         <div className={styles.container}>
-            <img src={require('../../assets/foto.jpg')} />
+            <img src={require('../../assets/edddd.jpg')} />
             {login ? <div className={styles.login}>
                 <h1 className={styles.h1} >SIAR-IMOB</h1>
                 <table style={{ marginTop: '250px' }}>
@@ -87,10 +100,11 @@ export function Login() {
                     </tr>
                 </table>
                 <a>Esqueceu senha?</a>
-                <Button style={{ width: '175px', marginTop: '40px', marginLeft: '45px' }} size='small' variant="contained" color="primary" disableElevation>
-                    <Link to='/home' style={{ textDecoration: 'none', color: 'black', margin: '0px' }}>
-                        <span style={{ textTransform: 'capitalize', color: 'white' }}>Entrar</span>
-                    </Link>
+                <Button style={{ width: '175px', marginTop: '40px', marginLeft: '45px' }}
+                    size='small' variant="contained" color="primary" disableElevation
+                    onClick={() => { logIn() }}
+                >
+                    <span style={{ textTransform: 'capitalize', color: 'white' }}>Entrar</span>
                 </Button>
             </div>
                 :
@@ -184,8 +198,8 @@ export function Login() {
                     </div>
                 </div>
             }
-            <Snack open={open} setOpen={setOpen} severity='warning' message={message} />
-            <SimpleBackdrop openBackdrop={openBackdrop} setOpenBackdrop={setOpenBackdrop} />
+            <Snack severity='warning' message={message} />
+            <SimpleBackdrop />
         </div>
     )
 }

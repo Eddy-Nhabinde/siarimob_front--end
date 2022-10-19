@@ -64,7 +64,7 @@ export default function MediaControlCard() {
                 </div>
                 <CardMedia
                     className={classes.cover}
-                    image={require('../../assets/foto.jpg')}
+                    image={require('../../assets/edddd.jpg')}
                     title="Live from space album cover"
                 />
             </Card>

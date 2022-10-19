@@ -41,7 +41,7 @@ export default function TransitionsModal({ open, setOpen }) {
                         <h4>Edmilson Nhabinde</h4>
                     </div>
                     <div className={styles.paper}>
-                        <img src={require('../../assets/foto.jpg')} />
+                        <img src={require('../../assets/edddd.jpg')} />
                         <div className={styles.details}>
                             <h1>Descricao</h1>
                             <hr />

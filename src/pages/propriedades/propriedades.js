@@ -40,7 +40,7 @@ export default function Props() {
         <>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Filter />
-                <button style={{ height: '40px', marginTop: '25px' }} type="button" class="btn btn-info" onClick={() => { SetRegister(!register);  window.scrollTo({top: 0, left: 0, behavior: 'smooth'});}}> <PlusOneIcon /> Adicionar</button>
+                <button style={{ height: '40px', marginTop: '25px' }} type="button" class="btn btn-info" onClick={() => { SetRegister(!register); window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); }}> <PlusOneIcon /> Adicionar</button>
             </div>
             <Paper className={classes.root}>
                 <table class="table" style={{ width: '100%' }}>
@@ -104,36 +104,38 @@ export default function Props() {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper >
-            <div style={{ display: register ? 'block' : 'none' }} className={styles.container}>
-                <h1 className={styles.h1}>Registe uma nova proprieade</h1>
-                <hr></hr>
-                <div className={styles.select}>
-                    <h1 className={styles.h1} style={{ marginTop: '8px' }}>Localizacao: </h1>
-                    <SelectM Label='Provincia' />
-                    <SelectM Label='Distrito' />
-                    <SelectM Label='Bairro' />
-                </div>
-                <div className={styles.secondDiv}>
-                    <div>
-                        <h1 className={styles.h1} style={{ marginTop: '10px' }}>Tipo:</h1>
-                        <SelectM Label='Tipo' />
+            <Paper className={classes.root}>
+                <div style={{ display: register ? 'block' : 'none' }} className={styles.container}>
+                    <h1 className={styles.h1}>Registe uma nova proprieade</h1>
+                    <hr></hr>
+                    <div className={styles.select}>
+                        <h1 className={styles.h1} style={{ marginTop: '8px' }}>Localizacao: </h1>
+                        <SelectM Label='Provincia' />
+                        <SelectM Label='Distrito' />
+                        <SelectM Label='Bairro' />
                     </div>
-                    <div className={styles.renda}>
-                        <h1 className={styles.h1} style={{ marginTop: '10px' }}>Renda:</h1>
-                        <NumberInput />
+                    <div className={styles.secondDiv}>
+                        <div>
+                            <h1 className={styles.h1} style={{ marginTop: '10px' }}>Tipo:</h1>
+                            <SelectM Label='Tipo' />
+                        </div>
+                        <div className={styles.renda}>
+                            <h1 className={styles.h1} style={{ marginTop: '10px' }}>Renda:</h1>
+                            <NumberInput />
+                        </div>
+                        <div className={styles.foto}>
+                            <h1 className={styles.h1} style={{ marginTop: '10px' }}>Foto:</h1>
+                            <Input tipo='file' />
+                        </div>
                     </div>
-                    <div className={styles.foto}>
-                        <h1 className={styles.h1} style={{ marginTop: '10px' }}>Foto:</h1>
-                        <Input tipo='file' />
+                    <h1 className={styles.h1} style={{ marginTop: '10px' }}>Descricao:</h1>
+                    <TextareaAutosize style={{ width: '100%', outline: 'none', marginTop: '5px' }} aria-label="minimum height" minRows={3} />
+                    <div style={{ marginLeft: '81%', marginTop: '20px' }}>
+                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-danger">Cancelar</button>
                     </div>
                 </div>
-                <h1 className={styles.h1} style={{ marginTop: '10px' }}>Descricao:</h1>
-                <TextareaAutosize style={{ width: '100%', boxShadow: 'none', border: 'none', outline: 'none', marginTop: '5px' }} aria-label="minimum height" minRows={3} />
-                <div style={{ marginLeft: '81%', marginTop: '20px' }}>
-                    <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Salvar</button>
-                    <button type="button" class="btn btn-danger">Cancelar</button>
-                </div>
-            </div>
+            </Paper>
         </>
     );
 }

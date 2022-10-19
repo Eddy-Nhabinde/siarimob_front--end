@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import { BackdropContext } from '../../contexts/backdropContext';
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -11,7 +11,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SimpleBackdrop({ openBackdrop, setOpenBackdrop }) {
+export default function SimpleBackdrop() {
+    const { setBackdropContext } = useContext(BackdropContext)
+    const [openBackdrop, setOpenBackdrop] = setBackdropContext
     const classes = useStyles();
 
     const handleClose = () => {

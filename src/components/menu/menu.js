@@ -25,6 +25,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Props from '../../pages/propriedades/propriedades';
 import { Lista } from '../../pages/inquilinos/inquilinos';
 import PositionedPopper from '../popver/Popover';
+import BarChart from '../../pages/estatistcas/estatisticas';
 
 const drawerWidth = 240;
 
@@ -131,7 +132,7 @@ export default function MiniDrawer() {
                             SIAR-IMOB
                         </Typography>
                         <Typography variant="h6" noWrap>
-                            <PositionedPopper/>
+                            <PositionedPopper />
                         </Typography>
                     </div>
                 </Toolbar>
@@ -168,7 +169,7 @@ export default function MiniDrawer() {
                         <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
                         <ListItemText primary={'Inquilinos'} />
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button onClick={() => { setcomponent(3) }}>
                         <ListItemIcon><EqualizerIcon /></ListItemIcon>
                         <ListItemText primary={'Estatisticas'} />
                     </ListItem>
@@ -199,7 +200,7 @@ export default function MiniDrawer() {
                     component == 1 ?
                         <Props />
                         : component == 2 ?
-                            <Lista /> : ""}
+                            <Lista /> : <BarChart />}
             </main>
         </div>
     );
