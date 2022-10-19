@@ -7,17 +7,20 @@ import RadioButtonsGroup from '../../components/radioB/radioButton'
 import { SaveUser } from '../../requests/Post/saveUser'
 import Snack from '../../components/alerts/Alerts'
 import SimpleBackdrop from '../../components/backdrop/backdrop'
-import { log } from '../../requests/Post/login'
+import { Log } from '../../requests/Post/login'
 import { BackdropContext } from '../../contexts/backdropContext'
 import { AlertContext } from '../../contexts/alertContext'
+import { useNavigate } from 'react-router-dom'
 
 export function Login() {
+    const navigate = useNavigate();
     const { setLoginContext } = useContext(LoginContext)
     const { setAlertContext } = useContext(AlertContext)
     const { setBackdropContext } = useContext(BackdropContext)
     const [login,] = setLoginContext
     const [, setOpen] = setAlertContext
     const [, setOpenBackdrop] = setBackdropContext
+    const { Entrar } = Log()
     const { SavingUser } = SaveUser()
     const [normal, setNormal] = useState(true)
     const [message, setMessage] = useState(false)
@@ -72,7 +75,16 @@ export function Login() {
             setOpen(true)
             setMessage('Por favor preencha todos os campos')
         } else {
-            log(mail, pass)
+            (async () => {
+                let response = await Entrar(mail, pass)
+                if (response.error) {
+                    setOpen(true)
+                    setMessage('Email ou senha errada')
+                } else {
+                    navigate('/home')
+                    localStorage.setItem('token', response.access_token)
+                }
+            })()
         }
     }
 

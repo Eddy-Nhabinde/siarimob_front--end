@@ -1,20 +1,18 @@
 export const SaveUser = () => {
 
-    const Query = () => (
+    function SavingUser(mail, pass, nome, apelido, contacto, dataNasc, conta) {
+        const Query =
         {
-            nome: "Eddy",
-            apelido: "nhabinde",
-            dataNasc: "2002/02/17",
-            contacto: "844004447",
-            senha: "bla",
-            conta: "",
-            acesso: "normal",
-            email: "blba@gmail.com"
+            nome: `${nome}`,
+            apelido: `${apelido}`,
+            dataNasc: `${dataNasc}`,
+            contacto: `${contacto}`,
+            senha: `${pass}`,
+            conta: `${conta}`,
+            acesso: conta ? 'admin' : 'normal',
+            email: `${mail}`
         }
-    )
-    
-    function SavingUser(mail, pass, nome, apelido, contacto, dataNasc, conta, Cpass) {
-        
+
     }
 
     return {
