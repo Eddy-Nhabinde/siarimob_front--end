@@ -17,13 +17,14 @@ export function Login() {
     const { setLoginContext } = useContext(LoginContext)
     const { setAlertContext } = useContext(AlertContext)
     const { setBackdropContext } = useContext(BackdropContext)
-    const [login,] = setLoginContext
+    const [login, setLogin] = setLoginContext
     const [, setOpen] = setAlertContext
     const [, setOpenBackdrop] = setBackdropContext
     const { Entrar } = Log()
     const { SavingUser } = SaveUser()
     const [normal, setNormal] = useState(true)
     const [message, setMessage] = useState(false)
+    const [severity, setSeverity] = useState('warning')
     let mail, pass, nome, apelido, contacto, dataNasc, conta, Cpass
 
     const email = (e) => {
@@ -65,8 +66,21 @@ export function Login() {
         } else if (pass != Cpass) {
             setMessage('As palavras passes devem ser iguais')
         } else {
-            setOpenBackdrop(true)
-            SavingUser(mail, pass, nome, apelido, contacto, dataNasc, conta, Cpass)
+            (async () => {
+                setOpenBackdrop(true)
+                let response = await SavingUser(mail, pass, nome, apelido, contacto, dataNasc, conta, Cpass)
+                if (response.error) {
+                    setOpenBackdrop(false)
+                    setMessage(response.error)
+                    setOpen(true)
+                } else {
+                    setOpenBackdrop(false)
+                    setSeverity('success')
+                    setMessage('Registo feito com sucesso')
+                    setOpen(true)
+                    setLogin(true)
+                }
+            })()
         }
     }
 
@@ -210,7 +224,7 @@ export function Login() {
                     </div>
                 </div>
             }
-            <Snack severity='warning' message={message} />
+            <Snack severity={severity} message={message} />
             <SimpleBackdrop />
         </div>
     )
