@@ -6,12 +6,12 @@ import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
-        marginLeft:10,
+        marginLeft: 10,
         minWidth: 200,
     },
 }));
 
-export default function SelectM({Label}) {
+export default function SelectM({ Label, data, setValue }) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         age: '',
@@ -24,6 +24,7 @@ export default function SelectM({Label}) {
             ...state,
             [name]: event.target.value,
         });
+        setValue(event.target.value)
     };
 
     return (
@@ -40,10 +41,15 @@ export default function SelectM({Label}) {
                         id: 'outlined-age-native-simple',
                     }}
                 >
-                    <option aria-label="None" value="" />
-                    <option value={10}>Ten</option>
-                    <option value={20}>Twenty</option>
-                    <option value={30}>Thirty</option>
+                    {data && <option aria-label="None" value="" />}
+                    {
+                        data?.map((val) => {
+                            return (
+                                <option value={val.id}>{val.nome}</option>
+                            )
+                        })
+                    }
+
                 </Select>
             </FormControl>
         </div>

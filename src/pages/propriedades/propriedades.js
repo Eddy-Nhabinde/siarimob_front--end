@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
@@ -9,6 +9,7 @@ import SelectM from '../../components/select/select';
 import Input from '../../components/textField/textField';
 import NumberInput from '../../components/numberInput/numberInput';
 import { TextareaAutosize } from '@material-ui/core';
+import { SelectData } from '../../requests/Get/getProvince';
 
 const useStyles = makeStyles({
     root: {
@@ -22,10 +23,19 @@ const useStyles = makeStyles({
 
 export default function Props() {
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [register, SetRegister] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [page, setPage] = useState(0);
+    const [provinceData, setProvinceData] = useState([]);
+    const [DistritoData, setDistritoData] = useState([]);
+    const [BairroData, setBairroData] = useState([]);
+    const [Provincia, setProvincia] = useState("");
+    const [Distrito, setDistrito] = useState("");
+    const [Bairro, setBairro] = useState("");
+    const [register, SetRegister] = useState(false);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    let type, valor, picture, desc
+    const { Province, District, Neighborhood } = SelectData()
 
+    console.log(Provincia)
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -35,12 +45,64 @@ export default function Props() {
         setPage(0);
     };
 
+    const tipo = (e) => {
+        type = e.target.value
+    }
+
+    const Renda = (e) => {
+        valor = e.target.value
+    }
+
+    const foto = (e) => {
+        picture = e.target.value
+    }
+
+    const description = (e) => {
+        desc = e.target.value
+    }
+
+    function getProvince() {
+        (async () => {
+            let response = await Province()
+            if (response) {
+                setProvinceData(response)
+            }
+        })()
+    }
+
+    useEffect(() => {
+        if (Provincia) {
+            (async () => {
+                let response = await District(Provincia)
+                if (response.length > 0) {
+                    setDistritoData(response)
+                } else {
+                    setDistritoData([])
+                }
+            })()
+        }
+    }, [Provincia])
+
+    useEffect(() => {
+        if (Distrito) {
+            (async () => {
+                let response = await Neighborhood(Distrito)
+                if (response.length > 0) {
+                    setBairroData(response)
+                } else {
+                    setBairroData([])
+                }
+            })()
+        }
+    }, [Distrito])
 
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Filter />
-                <button style={{ height: '40px', marginTop: '25px' }} type="button" class="btn btn-info" onClick={() => { SetRegister(!register); window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); }}> <PlusOneIcon /> Adicionar</button>
+                <button style={{ height: '40px', marginTop: '25px' }} type="button" class="btn btn-info"
+                    onClick={() => { SetRegister(!register); getProvince() }}>
+                    <PlusOneIcon /> Adicionar</button>
             </div>
             <Paper className={classes.root}>
                 <table class="table" style={{ width: '100%' }}>
@@ -68,30 +130,6 @@ export default function Props() {
                                 <button type="button" class="btn btn-danger">Eliminar</button>
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td >
-                                <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td >
-                                <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
                 <TablePagination
@@ -110,9 +148,9 @@ export default function Props() {
                     <hr></hr>
                     <div className={styles.select}>
                         <h1 className={styles.h1} style={{ marginTop: '8px' }}>Localizacao: </h1>
-                        <SelectM Label='Provincia' />
-                        <SelectM Label='Distrito' />
-                        <SelectM Label='Bairro' />
+                        <SelectM setValue={setProvincia} data={provinceData} Label='Provincia' />
+                        <SelectM setValue={setDistrito} data={DistritoData} Label='Distrito' />
+                        <SelectM setValue={setBairro} data={BairroData} Label='Bairro' />
                     </div>
                     <div className={styles.secondDiv}>
                         <div>

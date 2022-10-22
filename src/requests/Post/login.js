@@ -14,7 +14,6 @@ export function Log() {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                // 'Authorization': 'Bearer <token_here>'
             },
             body: JSON.stringify(Query),
         })

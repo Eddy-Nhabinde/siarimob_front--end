@@ -63,7 +63,7 @@ export function Login() {
         if (!mail || !pass || !nome || !apelido || !contacto || !dataNasc || !Cpass) {
             setOpen(true)
             setMessage('Por favor preencha todos os campos')
-        } else if (pass != Cpass) {
+        } else if (pass !== Cpass) {
             setMessage('As palavras passes devem ser iguais')
         } else {
             (async () => {
@@ -72,6 +72,7 @@ export function Login() {
                 if (response.error) {
                     setOpenBackdrop(false)
                     setMessage(response.error)
+                    setSeverity('error')
                     setOpen(true)
                 } else {
                     setOpenBackdrop(false)

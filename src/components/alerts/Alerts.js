@@ -33,8 +33,8 @@ export default function Snack({ severity, message }) {
 
   return (
     <div className={classes.root}>
-      <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={severity}>
+      <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={6000} onClose={handleClose} >
+        <Alert onClose={handleClose} severity={severity} style={{minWidth:'150px'}}>
           {message}
         </Alert>
       </Snackbar>
