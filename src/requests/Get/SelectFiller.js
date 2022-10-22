@@ -84,5 +84,23 @@ export function SelectData() {
         return dados
     }
 
-    return { Province, District, Neighborhood, Tipo }
+    async function Status() {
+
+        let dados = fetch('http://127.0.0.1:8000/api/estados', {
+            method: 'GET',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                return data;
+            })
+
+        return dados
+    }
+
+    return { Province, District, Neighborhood, Tipo, Status }
 }

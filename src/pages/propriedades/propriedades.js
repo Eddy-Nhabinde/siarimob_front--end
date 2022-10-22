@@ -15,6 +15,7 @@ import SimpleBackdrop from '../../components/backdrop/backdrop';
 import Snack from '../../components/alerts/Alerts';
 import { AlertContext } from '../../contexts/alertContext';
 import { BackdropContext } from '../../contexts/backdropContext';
+import { Propss } from '../../requests/Get/getProps';
 
 const useStyles = makeStyles({
     root: {
@@ -40,6 +41,10 @@ export default function Props() {
     const [BairroData, setBairroData] = useState([]);
     const [TipoData, setTipoData] = useState([]);
 
+    const [BairroFilter, setBairroFilter] = useState("");
+    const [TipoFilter, setTipoFilter] = useState("");
+    const [EstadoFilter, setEstadoFilter] = useState("");
+
     const [Provincia, setProvincia] = useState("");
     const [Distrito, setDistrito] = useState("");
     const [TipoValue, setTipoValue] = useState("");
@@ -52,8 +57,13 @@ export default function Props() {
     const [message, setMessage] = useState("")
     const [severity, setSeverity] = useState('warning')
 
+    const [listData, setListData] = useState([])
+
     const { Province, District, Neighborhood, Tipo } = SelectData()
     const { SavingProp } = SaveProp()
+    const { GetProps } = Propss()
+
+    const data = new FormData()
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -87,14 +97,13 @@ export default function Props() {
 
     function Gravar(e) {
         e.preventDefault()
-        const data = new FormData()
         if (!Bairro || !Picture || !Valor || !Desc || !TipoValue) {
             setOpen(true)
             setMessage('Por favor preencha todos os campos')
         } else {
             (async () => {
                 setOpenBackdrop(true)
-                
+
                 data.append('image', Picture)
                 data.append('Bairro', Bairro)
                 data.append('Valor', Valor)
@@ -113,9 +122,27 @@ export default function Props() {
                     setMessage(response.data)
                     setOpen(true)
                 }
+                SetRegister(false)
             })()
         }
     }
+
+    useEffect(() => {
+        (async () => {
+            data.append('dono_id', '1')
+            if (BairroFilter) data.append('bairro', BairroFilter)
+
+            if (TipoFilter) data.append('tipo', TipoFilter)
+
+            if (Valor) data.append('preco', Valor)
+
+            let response = await GetProps(data, EstadoFilter)
+
+            if (response) {
+                setListData(response)
+            }
+        })()
+    }, [BairroFilter, TipoFilter, EstadoFilter, Valor])
 
     useEffect(() => {
         (async () => {
@@ -155,7 +182,7 @@ export default function Props() {
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Filter />
+                <Filter setPrecoFilter={Renda} setBairroFilter={setBairroFilter} setTipoFilter={setTipoFilter} setEstadoFilter={setEstadoFilter} lista={true} />
                 <button style={{ height: '40px', marginTop: '25px' }} type="button" class="btn btn-info"
                     onClick={() => { SetRegister(!register); getProvince() }}>
                     <PlusOneIcon /> Adicionar</button>

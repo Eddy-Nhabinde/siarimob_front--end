@@ -5,7 +5,7 @@ import StorefrontIcon from '@material-ui/icons/Storefront';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import HomeIcon from '@material-ui/icons/Home';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -26,6 +26,7 @@ import Props from '../../pages/propriedades/propriedades';
 import { Lista } from '../../pages/inquilinos/inquilinos';
 import PositionedPopper from '../popver/Popover';
 import BarChart from '../../pages/estatistcas/estatisticas';
+import { Propss } from '../../requests/Get/getProps';
 
 const drawerWidth = 240;
 
@@ -93,10 +94,35 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MiniDrawer() {
+    const data = new FormData()
+
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [component, setcomponent] = React.useState(0);
+
+    const [Casas, setCasas] = useState([])
+    const [BairroFilter, setBairroFilter] = useState("");
+    const [TipoFilter, setTipoFilter] = useState("");
+    const [PrecoFilter, setPrecoFilter] = useState("");
+    const { GetProps } = Propss()
+
+    useEffect(() => {
+        (async () => {
+            data.append('dono_id', '1')
+            if (BairroFilter) data.append('bairro', BairroFilter)
+
+            if (TipoFilter) data.append('tipo', TipoFilter)
+
+            if (PrecoFilter) data.append('preco', PrecoFilter)
+
+            let response = await GetProps(data)
+
+            if (response) {
+                setCasas(response.data)
+            }
+        })()
+    }, [BairroFilter, TipoFilter, PrecoFilter])
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -180,20 +206,15 @@ export default function MiniDrawer() {
                 <div className={classes.drawerHeader} />
                 {component == 0 ?
                     <>
-                        <Filter />
+                        <Filter setPrecoFilter={setPrecoFilter} setBairroFilter={setBairroFilter} setTipoFilter={setTipoFilter} />
                         <div className={styles.container} >
-                            <MediaCard />
-                            <MediaCard />
-                            <MediaCard />
-                            <MediaCard />
-                            <MediaCard />
-                            <MediaCard />
-                            <MediaCard />
-                            <MediaCard />
-                            <MediaCard />
-                            <MediaCard />
-                            <MediaCard />
-                            <MediaCard />
+                            {
+                                Casas?.[0]?.map((val, id) => {
+                                    return (
+                                        <MediaCard casa={val} />
+                                    )
+                                })
+                            }
                         </div>
                     </>
                     :

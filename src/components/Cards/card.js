@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function MediaControlCard() {
+export default function MediaControlCard({ casa }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false)
 
@@ -49,13 +49,13 @@ export default function MediaControlCard() {
                 <div className={classes.details}>
                     <CardContent className={classes.content}>
                         <Typography style={{ fontSize: '20px', marginBottom: '10px' }} component="h6" variant="h5">
-                            Bairro
+                            {casa.nome}
                         </Typography>
                         <Typography style={{ fontSize: '20px', marginBottom: '10px' }} component="h5" variant="h5">
-                            Tipo 1
+                            {casa.tipoNome}
                         </Typography>
                         <Typography style={{ fontSize: '20px', marginBottom: '10px' }} component="h5" variant="h5">
-                            3000.00MT
+                            {casa.preco}
                         </Typography>
                     </CardContent>
                     <div style={{ width: '100px', margin: '24px' }} onClick={() => { setOpen(true) }} >
@@ -64,7 +64,7 @@ export default function MediaControlCard() {
                 </div>
                 <CardMedia
                     className={classes.cover}
-                    image={require('../../assets/edddd.jpg')}
+                    image={"http://localhost:8000/images/"+casa.foto}
                     title="Live from space album cover"
                 />
             </Card>
