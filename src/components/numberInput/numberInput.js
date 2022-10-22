@@ -22,7 +22,7 @@ function NumberFormatCustom(props) {
     );
 }
 
-export default function NumberInput() {
+export default function NumberInput({inpuChanged}) {
     return (
         <TextField
             name="numberformat"
@@ -34,6 +34,7 @@ export default function NumberInput() {
             size='small'
             fullWidth
             placeholder='Preco'
+            onChange={inpuChanged}
             style={{minWidth: 150, width: 'auto'}}
         />
     );

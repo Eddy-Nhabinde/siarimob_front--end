@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
@@ -10,11 +10,16 @@ import Input from '../../components/textField/textField';
 import NumberInput from '../../components/numberInput/numberInput';
 import { TextareaAutosize } from '@material-ui/core';
 import { SelectData } from '../../requests/Get/SelectFiller';
+import { SaveProp } from '../../requests/Post/saveProp';
+import SimpleBackdrop from '../../components/backdrop/backdrop';
+import Snack from '../../components/alerts/Alerts';
+import { AlertContext } from '../../contexts/alertContext';
+import { BackdropContext } from '../../contexts/backdropContext';
 
 const useStyles = makeStyles({
     root: {
         width: '100%',
-        marginTop: '30px'
+        marginTop: '30px',
     },
     container: {
         maxHeight: 440,
@@ -23,19 +28,33 @@ const useStyles = makeStyles({
 
 export default function Props() {
     const classes = useStyles();
+    const { setAlertContext } = useContext(AlertContext)
+    const { setBackdropContext } = useContext(BackdropContext)
+    const [, setOpen] = setAlertContext
+    const [, setOpenBackdrop] = setBackdropContext
+
     const [page, setPage] = useState(0);
+
     const [provinceData, setProvinceData] = useState([]);
     const [DistritoData, setDistritoData] = useState([]);
     const [BairroData, setBairroData] = useState([]);
+    const [TipoData, setTipoData] = useState([]);
+
     const [Provincia, setProvincia] = useState("");
     const [Distrito, setDistrito] = useState("");
+    const [TipoValue, setTipoValue] = useState("");
     const [Bairro, setBairro] = useState("");
+    const [Desc, setDesc] = useState("");
+    const [Valor, setValor] = useState("");
+    const [Picture, setPicture] = useState("");
     const [register, SetRegister] = useState(false);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    let type, valor, picture, desc
-    const { Province, District, Neighborhood } = SelectData()
+    const [message, setMessage] = useState("")
+    const [severity, setSeverity] = useState('warning')
 
-    console.log(Provincia)
+    const { Province, District, Neighborhood, Tipo } = SelectData()
+    const { SavingProp } = SaveProp()
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -45,20 +64,16 @@ export default function Props() {
         setPage(0);
     };
 
-    const tipo = (e) => {
-        type = e.target.value
-    }
-
     const Renda = (e) => {
-        valor = e.target.value
+        setValor(e.target.value)
     }
 
     const foto = (e) => {
-        picture = e.target.value
+        setPicture(e.target.files[0])
     }
 
     const description = (e) => {
-        desc = e.target.value
+        setDesc(e.target.value)
     }
 
     function getProvince() {
@@ -69,6 +84,47 @@ export default function Props() {
             }
         })()
     }
+
+    function Gravar(e) {
+        e.preventDefault()
+        const data = new FormData()
+        if (!Bairro || !Picture || !Valor || !Desc || !TipoValue) {
+            setOpen(true)
+            setMessage('Por favor preencha todos os campos')
+        } else {
+            (async () => {
+                setOpenBackdrop(true)
+                
+                data.append('image', Picture)
+                data.append('Bairro', Bairro)
+                data.append('Valor', Valor)
+                data.append('Desc', Desc)
+                data.append('TipoValue', TipoValue)
+
+                let response = await SavingProp(data)
+                if (response.error) {
+                    setOpenBackdrop(false)
+                    setMessage(response.error)
+                    setSeverity('error')
+                    setOpen(true)
+                } else {
+                    setOpenBackdrop(false)
+                    setSeverity('success')
+                    setMessage(response.data)
+                    setOpen(true)
+                }
+            })()
+        }
+    }
+
+    useEffect(() => {
+        (async () => {
+            let response = await Tipo()
+            if (response) {
+                setTipoData(response)
+            }
+        })()
+    }, [Provincia])
 
     useEffect(() => {
         if (Provincia) {
@@ -144,36 +200,41 @@ export default function Props() {
             </Paper >
             <Paper className={classes.root}>
                 <div style={{ display: register ? 'block' : 'none' }} className={styles.container}>
-                    <h1 className={styles.h1}>Registe uma nova proprieade</h1>
-                    <hr></hr>
-                    <div className={styles.select}>
-                        <h1 className={styles.h1} style={{ marginTop: '8px' }}>Localizacao: </h1>
-                        <SelectM setValue={setProvincia} data={provinceData} Label='Provincia' />
-                        <SelectM setValue={setDistrito} data={DistritoData} Label='Distrito' />
-                        <SelectM setValue={setBairro} data={BairroData} Label='Bairro' />
-                    </div>
-                    <div className={styles.secondDiv}>
-                        <div>
-                            <h1 className={styles.h1} style={{ marginTop: '10px' }}>Tipo:</h1>
-                            <SelectM Label='Tipo' />
+                    <form onSubmit={Gravar} encType="multipart/form-data">
+                        <h1 className={styles.h1}>Registe uma nova proprieade</h1>
+                        <hr></hr>
+                        <div className={styles.select}>
+                            <h1 className={styles.h1} style={{ marginTop: '8px' }}>Localizacao: </h1>
+                            <SelectM setValue={setProvincia} data={provinceData} Label='Provincia' />
+                            <SelectM setValue={setDistrito} data={DistritoData} Label='Distrito' />
+                            <SelectM setValue={setBairro} data={BairroData} Label='Bairro' />
                         </div>
-                        <div className={styles.renda}>
-                            <h1 className={styles.h1} style={{ marginTop: '10px' }}>Renda:</h1>
-                            <NumberInput />
+                        <div className={styles.secondDiv}>
+                            <div>
+                                <h1 className={styles.h1} style={{ marginTop: '10px' }}>Tipo:</h1>
+                                <SelectM data={TipoData} setValue={setTipoValue} Label='Tipo' />
+                            </div>
+                            <div className={styles.renda}>
+                                <h1 className={styles.h1} style={{ marginTop: '10px' }}>Renda:</h1>
+                                <NumberInput inpuChanged={Renda} />
+                            </div>
+                            <div className={styles.foto}>
+                                <h1 className={styles.h1} style={{ marginTop: '10px' }}>Foto:</h1>
+                                <Input tipo='file' InputChanged={foto} />
+                            </div>
                         </div>
-                        <div className={styles.foto}>
-                            <h1 className={styles.h1} style={{ marginTop: '10px' }}>Foto:</h1>
-                            <Input tipo='file' />
+                        <h1 className={styles.h1} style={{ marginTop: '10px' }}>Descricao:</h1>
+                        <TextareaAutosize style={{ width: '100%', outline: 'none', marginTop: '5px' }} onChange={(e) => { description(e) }} aria-label="minimum height" minRows={3} />
+                        <div style={{ marginLeft: '81%', marginTop: '20px' }}>
+                            <button style={{ marginRight: '15px' }} type="submit"
+                                class="btn btn-primary" >Salvar</button>
+                            <button type="button" class="btn btn-danger">Cancelar</button>
                         </div>
-                    </div>
-                    <h1 className={styles.h1} style={{ marginTop: '10px' }}>Descricao:</h1>
-                    <TextareaAutosize style={{ width: '100%', outline: 'none', marginTop: '5px' }} aria-label="minimum height" minRows={3} />
-                    <div style={{ marginLeft: '81%', marginTop: '20px' }}>
-                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Salvar</button>
-                        <button type="button" class="btn btn-danger">Cancelar</button>
-                    </div>
+                    </form>
                 </div>
             </Paper>
+            <Snack severity={severity} message={message} />
+            <SimpleBackdrop />
         </>
     );
 }
