@@ -9,7 +9,7 @@ import SelectM from '../../components/select/select';
 import Input from '../../components/textField/textField';
 import NumberInput from '../../components/numberInput/numberInput';
 import { TextareaAutosize } from '@material-ui/core';
-import { SelectData } from '../../requests/Get/getProvince';
+import { SelectData } from '../../requests/Get/SelectFiller';
 
 const useStyles = makeStyles({
     root: {
