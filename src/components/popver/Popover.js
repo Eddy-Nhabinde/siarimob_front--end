@@ -100,6 +100,7 @@ export default function PositionedPopper({ funcao, setEvent }) {
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 obj={Object}
+                setModalShow={setModalShow}
             />
         </div>
 
