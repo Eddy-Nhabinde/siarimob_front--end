@@ -27,6 +27,7 @@ import { Lista } from '../../pages/inquilinos/inquilinos';
 import PositionedPopper from '../popver/Popover';
 import BarChart from '../../pages/estatistcas/estatisticas';
 import { Propss } from '../../requests/Get/getProps';
+import { Dashboard } from '../../pages/adminDashboard/adminDash';
 
 const drawerWidth = 240;
 
@@ -158,7 +159,7 @@ export default function MiniDrawer() {
                             SIAR-IMOB
                         </Typography>
                         <Typography variant="h6" noWrap>
-                            <PositionedPopper />
+                            <PositionedPopper funcao='user' />
                         </Typography>
                     </div>
                 </Toolbar>
@@ -204,7 +205,7 @@ export default function MiniDrawer() {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <div className={classes.drawerHeader} />
-                {component == 0 ?
+                {/* {component == 0 ?
                     <>
                         <Filter setPrecoFilter={setPrecoFilter} setBairroFilter={setBairroFilter} setTipoFilter={setTipoFilter} />
                         <div className={styles.container} >
@@ -221,7 +222,8 @@ export default function MiniDrawer() {
                     component == 1 ?
                         <Props />
                         : component == 2 ?
-                            <Lista /> : <BarChart />}
+                            <Lista /> : <BarChart />} */}
+                <Dashboard />
             </main>
         </div>
     );
