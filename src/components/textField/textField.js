@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 export default function Input({ label, tipo, InputChanged }) {
     const classes = useStyles();
 
