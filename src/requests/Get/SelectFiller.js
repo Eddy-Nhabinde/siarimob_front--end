@@ -1,8 +1,12 @@
-export function SelectData() {
+export function SelectData(counnt) {
+    let param = ""
 
     async function Province() {
+        if (counnt) {
+            param = '/1'
+        }
 
-        let dados = fetch('http://127.0.0.1:8000/api/provinces', {
+        let dados = fetch('http://127.0.0.1:8000/api/provinces' + param, {
             method: 'GET',
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -23,6 +27,7 @@ export function SelectData() {
         const idProvince =
         {
             province: `${province_id}`,
+            param: counnt ? 1 : ""
         }
 
         let dados = fetch('http://127.0.0.1:8000/api/districts', {
@@ -47,6 +52,7 @@ export function SelectData() {
         const distritoId =
         {
             distrito: `${distrito_id}`,
+            param: counnt ? 1 : ""
         }
 
         let dados = fetch('http://127.0.0.1:8000/api/bairros', {
@@ -67,8 +73,10 @@ export function SelectData() {
     }
 
     async function Tipo() {
-
-        let dados = fetch('http://127.0.0.1:8000/api/tipos', {
+        if (counnt) {
+            param = '/1'
+        }
+        let dados = fetch('http://127.0.0.1:8000/api/tipos' + param, {
             method: 'GET',
             headers: {
                 'Access-Control-Allow-Origin': '*',

@@ -1,6 +1,7 @@
 import { makeStyles, Paper } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PositionedPopper from "../../components/popver/Popover";
+import { SelectData } from "../../requests/Get/SelectFiller";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,6 +16,29 @@ const useStyles = makeStyles((theme) => ({
 
 export function Dashboard() {
     const classes = useStyles();
+    const [Provincia, setProvincia] = useState([]);
+    const [Distrito, setDistrito] = useState([]);
+    const [Bairro, setBairro] = useState([]);
+    const [Type, setType] = useState([]);
+    const { Province, District, Neighborhood, Tipo } = SelectData(1)
+
+    useEffect(() => {
+        (async () => {
+            let response = await Province()
+            let response2 = await District()
+            let response3 = await Neighborhood()
+            let response4 = await Tipo()
+
+            if (response && response2 && response3 && response4) {
+                setDistrito(response2)
+                setProvincia(response)
+                setBairro(response3)
+                setType(response4)
+            }
+        })()
+    }, [])
+
+    console.log(Provincia, Distrito, Bairro,Type)
     return (
         <>
             <Paper className={classes.root}>
@@ -26,12 +50,14 @@ export function Dashboard() {
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nome</th>
+                                    <th scope="col">Toatal Distritos</th>
                                     <th scope="col">Accoes</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
+                                    <td>Mark</td>
                                     <td>Mark</td>
                                     <td style={{ width: '40%' }}>
                                         <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
@@ -42,6 +68,7 @@ export function Dashboard() {
                                 <tr>
                                     <th scope="row">2</th>
                                     <td>Jacob</td>
+                                    <td>Mark</td>
                                     <td style={{ width: '40%' }}>
                                         <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
                                         <button type="button" class="btn btn-danger">Eliminar</button>
@@ -51,6 +78,7 @@ export function Dashboard() {
                                 <tr>
                                     <th scope="row">3</th>
                                     <td>Larry</td>
+                                    <td>Mark</td>
                                     <td style={{ width: '40%' }}>
                                         <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
                                         <button type="button" class="btn btn-danger">Eliminar</button>

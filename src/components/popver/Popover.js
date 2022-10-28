@@ -60,26 +60,28 @@ export default function PositionedPopper({ funcao, setEvent }) {
                                     </>
                                     :
                                     <>
-                                        <ListItem button >
-                                            <div onClick={() => { setOpen(false); setObject('Provincia'); setModalShow(true) }}>
+                                        <div onClick={() => { setOpen(false); setObject('Provincia'); setModalShow(true) }}>
+                                            <ListItem button >
                                                 <ListItemText primary={'Provincia '} />
-                                            </div>
-                                        </ListItem>
-                                        <ListItem button>
-                                            <div onClick={() => { setOpen(false); setObject('Distrito'); setModalShow(true) }}>
+                                            </ListItem>
+                                        </div>
+                                        <div onClick={() => { setOpen(false); setObject('Distrito'); setModalShow(true) }}>
+                                            <ListItem button>
                                                 <ListItemText primary={'Distrito '} />
-                                            </div>
-                                        </ListItem>
-                                        <ListItem button>
-                                            <div onClick={() => { setOpen(false); setObject('Bairro'); setModalShow(true) }}>
+                                            </ListItem>
+                                        </div>
+
+                                        <div onClick={() => { setOpen(false); setObject('Bairro'); setModalShow(true) }}>
+                                            <ListItem button>
                                                 <ListItemText primary={'Bairro '} />
-                                            </div>
-                                        </ListItem>
-                                        <ListItem button>
-                                            <div onClick={() => { setOpen(false); setObject('Tipo de Propriedade'); setModalShow(true) }}>
+                                            </ListItem>
+                                        </div>
+                                        <div onClick={() => { setOpen(false); setObject('Tipo de Propriedade'); setModalShow(true) }}>
+                                            <ListItem button>
                                                 <ListItemText primary={'Tipo de Propriedade '} />
-                                            </div>
-                                        </ListItem>
+                                            </ListItem>
+                                        </div>
+
                                     </>
                                 }
                             </List>
