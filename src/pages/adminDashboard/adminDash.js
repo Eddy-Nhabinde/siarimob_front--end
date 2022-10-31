@@ -38,7 +38,7 @@ export function Dashboard() {
         })()
     }, [])
 
-    console.log(Provincia, Distrito, Bairro,Type)
+    console.log(Provincia, Distrito, Bairro, Type)
     return (
         <>
             <Paper className={classes.root}>
@@ -55,35 +55,23 @@ export function Dashboard() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Mark</td>
-                                    <td style={{ width: '40%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Mark</td>
-                                    <td style={{ width: '40%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>Mark</td>
-                                    <td style={{ width: '40%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-                                </tr>
+                                {
+                                    Provincia?.map((val, id) => {
+                                        return (
+                                            <tr>
+                                                <th scope="row">{id + 1}</th>
+                                                <td>{val.nome}</td>
+                                                <td>{val.totalDistrito}</td>
+                                                <td style={{ width: '40%' }}>
+                                                    <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
+                                                    {
+                                                        val.totalDistrito <= 0 && <button type="button" class="btn btn-danger">Eliminar</button>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -100,36 +88,24 @@ export function Dashboard() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>Otto</td>
-                                    <td style={{ width: '38%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>Otto</td>
-                                    <td style={{ width: '38%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>Otto</td>
-                                    <td style={{ width: '38%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-                                </tr>
+                                {
+                                    Distrito?.map((val, id) => {
+                                        return (
+                                            <tr>
+                                                <td>{id + 1}</td>
+                                                <td>{val.nome}</td>
+                                                <td>{val.pname}</td>
+                                                <td>{val.totalBairross}</td>
+                                                <td style={{ width: '40%' }}>
+                                                    <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
+                                                    {
+                                                        val.totalBairross <= 0 && <button type="button" class="btn btn-danger">Eliminar</button>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -142,40 +118,30 @@ export function Dashboard() {
                                     <th scope="col">Nome</th>
                                     <th scope="col">Distrito</th>
                                     <th scope="col">Provincia</th>
+                                    <th scope="col">Total Casas</th>
                                     <th scope="col">Accoes</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>Otto</td>
-                                    <td style={{ width: '40%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>Otto</td>
-                                    <td style={{ width: '40%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>Otto</td>
-                                    <td style={{ width: '40%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-                                </tr>
+                                {
+                                    Bairro?.map((val, id) => {
+                                        return (
+                                            <tr>
+                                                <td>{id + 1}</td>
+                                                <td>{val.nome}</td>
+                                                <td>{val.dname}</td>
+                                                <td>{val.pname}</td>
+                                                <td>{val.totalProps}</td>
+                                                <td style={{ width: '40%' }}>
+                                                    <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
+                                                    {
+                                                        val.totalProps <= 0 && <button type="button" class="btn btn-danger">Eliminar</button>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -186,42 +152,28 @@ export function Dashboard() {
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nome</th>
-                                    <th scope="col">Distrito</th>
-                                    <th scope="col">Provincia</th>
+                                    <th scope="col">Total Casas</th>
                                     <th scope="col">Accoes</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>Otto</td>
-                                    <td style={{ width: '40%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>Otto</td>
-                                    <td style={{ width: '40%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>Otto</td>
-                                    <td style={{ width: '40%' }}>
-                                        <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                    </td>
-                                </tr>
+                                {
+                                    Type?.map((val, id) => {
+                                        return (
+                                            <tr>
+                                                <td>{id + 1}</td>
+                                                <td>{val.nome}</td>
+                                                <td>{val.totalCasas}</td>
+                                                <td style={{ width: '40%' }}>
+                                                    <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
+                                                    {
+                                                        val.totalCasas <= 0 && <button type="button" class="btn btn-danger">Eliminar</button>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
                             </tbody>
                         </table>
                     </div>

@@ -205,7 +205,8 @@ export default function MiniDrawer() {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <div className={classes.drawerHeader} />
-                {/* {component == 0 ?
+                
+                {component == 0 ?
                     <>
                         <Filter setPrecoFilter={setPrecoFilter} setBairroFilter={setBairroFilter} setTipoFilter={setTipoFilter} />
                         <div className={styles.container} >
@@ -222,8 +223,9 @@ export default function MiniDrawer() {
                     component == 1 ?
                         <Props />
                         : component == 2 ?
-                            <Lista /> : <BarChart />} */}
-                <Dashboard />
+                            <Lista /> : <BarChart />
+                }
+                {/* <Dashboard /> */}
             </main>
         </div>
     );

@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Props() {
+export default function Props({ Casas }) {
     const classes = useStyles();
     const { setAlertContext } = useContext(AlertContext)
     const { setBackdropContext } = useContext(BackdropContext)
@@ -94,6 +94,7 @@ export default function Props() {
             }
         })()
     }
+    console.log(listData)
 
     function Gravar(e) {
         e.preventDefault()
@@ -127,6 +128,7 @@ export default function Props() {
         }
     }
 
+
     useEffect(() => {
         (async () => {
             data.append('dono_id', '1')
@@ -139,7 +141,7 @@ export default function Props() {
             let response = await GetProps(data, EstadoFilter)
 
             if (response) {
-                setListData(response)
+                setListData(response.data)
             }
         })()
     }, [BairroFilter, TipoFilter, EstadoFilter, Valor])
@@ -192,27 +194,35 @@ export default function Props() {
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Cod</th>
                             <th scope="col">Tipo</th>
                             <th scope="col">Bairro</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Preco</th>
+                            <th scope="col">Descricao</th>
                             <th scope="col">Accoes</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td style={{ width: '20%' }}>
-                                <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
+                        {
+                            listData?.map((val, id) => {
+                                return (
+                                    <tr>
+                                        <td scope="row">{id + 1}</td>
+                                        <td>{val[0]?.tipoNome}</td>
+                                        <td>{val[0]?.nome}</td>
+                                        <td>{val[0]?.status}</td>
+                                        <td>{val[0]?.preco}</td>
+                                        <td>{val[0]?.descricao}</td>
+                                        <td style={{ width: '20%' }}>
+                                            {
+                                                val[0]?.status != 'Ocupado' && <> <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
+                                                    <button type="button" class="btn btn-danger">Eliminar</button></>
+                                           }
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
                     </tbody>
                 </table>
                 <TablePagination

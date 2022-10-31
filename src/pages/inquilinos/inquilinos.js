@@ -1,6 +1,6 @@
 import { makeStyles, Paper, TablePagination } from "@material-ui/core";
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { GetInq } from "../../requests/Get/getInquilinos";
 
 const useStyles = makeStyles({
     root: {
@@ -17,6 +17,19 @@ export function Lista() {
     const [page, setPage] = React.useState(0);
     const [register, SetRegister] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [inq, setInq] = useState([])
+    const { Inquilinos } = GetInq()
+
+    useEffect(() => {
+        (async () => {
+            let response = await Inquilinos()
+
+            if (response) {
+                setInq(response)
+            }
+        })()
+    }, [])
+
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -27,9 +40,9 @@ export function Lista() {
     }
     return (
         <>
-            <nav class="navbar" style={{marginLeft:'-15px', marginBottom:'-40px', marginTop:'20px'}}>
+            <nav class="navbar" style={{ marginLeft: '-15px', marginBottom: '-40px', marginTop: '20px' }}>
                 <form class="form-inline">
-                    <input style={{width:'350px'}} class="form-control mr-sm-2" type="search" placeholder="Pesquise pelo nome/ apelido/ contacto" aria-label="Search" />
+                    <input style={{ width: '350px' }} class="form-control mr-sm-2" type="search" placeholder="Pesquise pelo nome/ apelido/ contacto" aria-label="Search" />
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </nav>
@@ -47,53 +60,23 @@ export function Lista() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td style={{ width: '23%' }}>
-                                <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Remover</button>
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td >
-                                <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Remover</button>
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td >
-                                <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Remover</button>
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
+                        {inq?.map((val, id) => {
+                            return (
+                                <tr>
+                                    <th scope="row">{id + 1}</th>
+                                    <td>{val.nomeInq}</td>
+                                    <td>{val.apelido}</td>
+                                    <td>{val.contacto}</td>
+                                    <td>{val.propID}</td>
+                                    <td>{val.estado}</td>
+                                    <td style={{ width: '15%' }}>
+                                        {val.estado == 'Em curso' ? <button type="button" class="btn btn-danger">Cancelar</button> : ""}
+                                    </td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
-                <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                // count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                />
             </Paper >
         </>
     )
