@@ -38,7 +38,6 @@ export function Dashboard() {
         })()
     }, [])
 
-    console.log(Provincia, Distrito, Bairro, Type)
     return (
         <>
             <Paper className={classes.root}>

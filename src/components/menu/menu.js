@@ -28,6 +28,7 @@ import PositionedPopper from '../popver/Popover';
 import BarChart from '../../pages/estatistcas/estatisticas';
 import { Propss } from '../../requests/Get/getProps';
 import { Dashboard } from '../../pages/adminDashboard/adminDash';
+import { useParams } from '../../hooks/QueryParams';
 
 const drawerWidth = 240;
 
@@ -99,14 +100,16 @@ export default function MiniDrawer() {
 
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-    const [component, setcomponent] = React.useState(0);
+    const [open, setOpen] = useState(false);
 
     const [Casas, setCasas] = useState([])
     const [BairroFilter, setBairroFilter] = useState("");
     const [TipoFilter, setTipoFilter] = useState("");
     const [PrecoFilter, setPrecoFilter] = useState("");
+    const { add, removeAll, useQuery } = useParams()
     const { GetProps } = Propss()
+    const urlParams = useQuery()
+    let page = urlParams.get('component')
 
     useEffect(() => {
         (async () => {
@@ -132,6 +135,11 @@ export default function MiniDrawer() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    function setComponent(val) {
+        removeAll()
+        add('component', val)
+    }
 
     return (
         <div className={classes.root}>
@@ -184,19 +192,19 @@ export default function MiniDrawer() {
                 </div>
                 <Divider />
                 <List>
-                    <ListItem button onClick={() => { setcomponent(0) }}>
+                    <ListItem button onClick={() => { setComponent(0) }}>
                         <ListItemIcon><StorefrontIcon /></ListItemIcon>
                         <ListItemText primary={'Mercado'} />
                     </ListItem>
-                    <ListItem button onClick={() => { setcomponent(1) }}>
+                    <ListItem button onClick={() => { setComponent(1) }}>
                         <ListItemIcon><HomeIcon /></ListItemIcon>
                         <ListItemText primary={'Propriedades'} />
                     </ListItem>
-                    <ListItem button onClick={() => { setcomponent(2) }}>
+                    <ListItem button onClick={() => { setComponent(2) }}>
                         <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
                         <ListItemText primary={'Inquilinos'} />
                     </ListItem>
-                    <ListItem button onClick={() => { setcomponent(3) }}>
+                    <ListItem button onClick={() => { setComponent(3) }}>
                         <ListItemIcon><EqualizerIcon /></ListItemIcon>
                         <ListItemText primary={'Estatisticas'} />
                     </ListItem>
@@ -205,13 +213,13 @@ export default function MiniDrawer() {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <div className={classes.drawerHeader} />
-                
-                {component == 0 ?
+
+                {urlParams.get('component') == 0 ?
                     <>
                         <Filter setPrecoFilter={setPrecoFilter} setBairroFilter={setBairroFilter} setTipoFilter={setTipoFilter} />
                         <div className={styles.container} >
                             {
-                                Casas?.[0]?.map((val, id) => {
+                                Casas?.[0]?.map((val) => {
                                     return (
                                         <MediaCard casa={val} />
                                     )
@@ -219,10 +227,9 @@ export default function MiniDrawer() {
                             }
                         </div>
                     </>
-                    :
-                    component == 1 ?
+                    : urlParams.get('component') == 1 ?
                         <Props />
-                        : component == 2 ?
+                        : urlParams.get('component') == 2 ?
                             <Lista /> : <BarChart />
                 }
                 {/* <Dashboard /> */}

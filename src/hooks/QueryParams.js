@@ -15,11 +15,15 @@ const useParams = () => {
         setSearchParams(searchParams)
     }
 
+    const removeAll = () => {
+        setSearchParams('')
+    }
+
     const useQuery = () => {
         return React.useMemo(() => new URLSearchParams(searchParams), [searchParams]);
     }
 
-    return { add, remove, useQuery };
+    return { add, remove, removeAll, useQuery };
 }
 
 export { useParams }
