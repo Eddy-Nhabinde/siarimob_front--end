@@ -114,7 +114,7 @@ export function Login() {
                             <h1>Email</h1>
                         </td>
                         <td>
-                            <Input label='Email' tipo='email' InputChanged={email} />
+                            <Input tipo='email' InputChanged={email} />
                         </td>
                     </tr>
                     <tr>
@@ -122,7 +122,7 @@ export function Login() {
                             <h1>Senha</h1>
                         </td>
                         <td>
-                            <Input label='Email' tipo='email' InputChanged={password} />
+                            <Input tipo='email' InputChanged={password} />
                         </td>
                     </tr>
                 </table>
@@ -150,7 +150,7 @@ export function Login() {
                                 <h1>Nome</h1>
                             </td>
                             <td>
-                                <Input label='Email' tipo='text' InputChanged={Name} />
+                                <Input tipo='text' InputChanged={Name} />
                             </td>
                         </tr>
                         <tr>
@@ -158,7 +158,7 @@ export function Login() {
                                 <h1>Apelido</h1>
                             </td>
                             <td>
-                                <Input label='Email' tipo='text' InputChanged={surname} />
+                                <Input tipo='text' InputChanged={surname} />
                             </td>
                         </tr>
                         <tr>
@@ -166,7 +166,7 @@ export function Login() {
                                 <h1>Contacto</h1>
                             </td>
                             <td>
-                                <Input label='Email' tipo='text' InputChanged={Contact} />
+                                <Input tipo='text' InputChanged={Contact} />
                             </td>
                         </tr>
                         <tr>
@@ -174,7 +174,7 @@ export function Login() {
                                 <h1>Email</h1>
                             </td>
                             <td>
-                                <Input label='Email' tipo='email' InputChanged={email} />
+                                <Input tipo='email' InputChanged={email} />
                             </td>
                         </tr>
                         <tr>
@@ -182,7 +182,7 @@ export function Login() {
                                 <h1>Data Nascimnto</h1>
                             </td>
                             <td>
-                                <Input label='Email' tipo='date' InputChanged={dateBirth} />
+                                <Input tipo='date' InputChanged={dateBirth} />
                             </td>
                         </tr>
                         {
@@ -191,7 +191,7 @@ export function Login() {
                                     <h1>Numero da Conta</h1>
                                 </td>
                                 <td>
-                                    <Input label='Email' tipo='number' InputChanged={account} />
+                                    <Input tipo='number' InputChanged={account} />
                                 </td>
                             </tr>
                         }
@@ -200,7 +200,7 @@ export function Login() {
                                 <h1>Senha</h1>
                             </td>
                             <td>
-                                <Input label='Email' tipo='password' InputChanged={password} />
+                                <Input tipo='password' InputChanged={password} />
                             </td>
                         </tr>
                         <tr>
@@ -208,7 +208,7 @@ export function Login() {
                                 <h1>Confirme a senha</h1>
                             </td>
                             <td>
-                                <Input label='Email' tipo='password' InputChanged={passConfirm} />
+                                <Input tipo='password' InputChanged={passConfirm} />
                             </td>
                         </tr>
                     </table>

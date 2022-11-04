@@ -19,6 +19,10 @@ export function Log() {
         })
             .then((response) => response.json())
             .then((data) => {
+                if (data[1].id) {
+                    sessionStorage.setItem("user_id", data[1].id);
+                    sessionStorage.setItem("token", data[0].original.access_token);
+                }
                 return data;
             })
 

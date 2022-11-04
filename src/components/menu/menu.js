@@ -112,6 +112,9 @@ export default function MiniDrawer() {
     let page = urlParams.get('component')
 
     useEffect(() => {
+        if (!urlParams.get('component')) {
+            add('component', 0)
+        }
         (async () => {
             data.append('dono_id', '1')
             if (BairroFilter) data.append('bairro', BairroFilter)

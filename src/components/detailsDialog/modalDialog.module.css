@@ -21,7 +21,7 @@ img{
 }
 
 .details{
-    margin-left: 15px;
+    margin-left: 55px;
 }
 
 .details h1{
@@ -42,6 +42,9 @@ img{
     margin-top: 2px;
 }
 
+.details p{
+    margin-top: 20px;
+}
 
 .details div h1{
     font-size: 18px;

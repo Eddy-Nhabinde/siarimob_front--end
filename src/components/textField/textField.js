@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Input({ label, tipo, InputChanged }) {
+export default function Input({ label, tipo, InputChanged, value }) {
     const classes = useStyles();
 
     return (
@@ -24,6 +24,7 @@ export default function Input({ label, tipo, InputChanged }) {
                     id="filled-required"
                     variant="outlined"
                     onChange={InputChanged}
+                    value={value}
                 />
             </div>
         </form>

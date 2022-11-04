@@ -1,6 +1,6 @@
 export function GetInq() {
 
-    let id = '/' + 1
+    let id = '/' + sessionStorage.getItem("token")
 
     async function Inquilinos() {
 

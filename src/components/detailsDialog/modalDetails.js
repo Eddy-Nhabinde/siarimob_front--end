@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function TransitionsModal({ open, setOpen }) {
+export default function TransitionsModal({ open, setOpen, casa }) {
     const classes = useStyles();
 
     const handleClose = () => {
@@ -41,33 +41,34 @@ export default function TransitionsModal({ open, setOpen }) {
                         <h4>Edmilson Nhabinde</h4>
                     </div>
                     <div className={styles.paper}>
-                        <img src={require('../../assets/edddd.jpg')} />
+                        <img src={"http://localhost:8000/images/" + casa.foto} />
                         <div className={styles.details}>
                             <h1>Descricao</h1>
                             <hr />
                             <p>
-                                Edmilson Edmilson EdmilsonEdmilsonEdmilson Edmilson
-                                EdmilsonEdmilson Edmilson EdmilsonEdmilson EdmilsonEdmilson
+                               {casa.descricao}
                             </p>
                             <div>
                                 <h1>Bairro</h1>
-                                <span>Zimpeto</span>
+                                <span>{casa.nome}</span>
                             </div>
                             <div>
                                 <h1>Tipo</h1>
-                                <span>Tipo 1</span>
+                                <span>{casa.tipoNome}</span>
                             </div>
                             <div>
                                 <h1>Renda</h1>
-                                <span>3000</span>
+                                <span>{casa.preco}</span>
                             </div>
                             <div className={styles.location}>
                                 <h1>Localizacao</h1>
                                 <span>Avenida de Mocambique bla bla bla</span>
                             </div>
-                            <Button style={{ width: '150px', marginTop: '43px' }} size='small' variant="contained" color="primary" disableElevation>
-                                <span style={{ textTransform: 'capitalize' }}>Arrendar</span>
-                            </Button>
+                            <div style={{ display: 'flex', justifyContent: 'center' }} >
+                                <Button style={{ width: '150px', marginTop: '13px' }} size='small' variant="contained" color="primary" disableElevation>
+                                    <span style={{ textTransform: 'capitalize', marginLeft: '-40px' }}>Arrendar</span>
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -44,7 +44,7 @@ export default function MediaControlCard({ casa }) {
 
     return (
         <>
-            <TransitionsModal open={open} setOpen={setOpen} />
+            <TransitionsModal open={open} setOpen={setOpen} casa={casa} />
             <Card className={classes.root}>
                 <div className={classes.details}>
                     <CardContent className={classes.content}>
@@ -64,7 +64,7 @@ export default function MediaControlCard({ casa }) {
                 </div>
                 <CardMedia
                     className={classes.cover}
-                    image={"http://localhost:8000/images/"+casa.foto}
+                    image={"http://localhost:8000/images/" + casa.foto}
                     title="Live from space album cover"
                 />
             </Card>
