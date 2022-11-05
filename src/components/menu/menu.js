@@ -29,6 +29,8 @@ import BarChart from '../../pages/estatistcas/estatisticas';
 import { Propss } from '../../requests/Get/getProps';
 import { Dashboard } from '../../pages/adminDashboard/adminDash';
 import { useParams } from '../../hooks/QueryParams';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
 const drawerWidth = 240;
 
@@ -199,18 +201,36 @@ export default function MiniDrawer() {
                         <ListItemIcon><StorefrontIcon /></ListItemIcon>
                         <ListItemText primary={'Mercado'} />
                     </ListItem>
-                    <ListItem button onClick={() => { setComponent(1) }}>
-                        <ListItemIcon><HomeIcon /></ListItemIcon>
-                        <ListItemText primary={'Propriedades'} />
-                    </ListItem>
-                    <ListItem button onClick={() => { setComponent(2) }}>
-                        <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
-                        <ListItemText primary={'Inquilinos'} />
-                    </ListItem>
-                    <ListItem button onClick={() => { setComponent(3) }}>
-                        <ListItemIcon><EqualizerIcon /></ListItemIcon>
-                        <ListItemText primary={'Estatisticas'} />
-                    </ListItem>
+                    {sessionStorage.getItem("acesso") == 'admin' ?
+                        <>
+                            <ListItem button onClick={() => { setComponent(1) }}>
+                                <ListItemIcon><HomeIcon /></ListItemIcon>
+                                <ListItemText primary={'Propriedades'} />
+                            </ListItem>
+                            <ListItem button onClick={() => { setComponent(2) }}>
+                                <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
+                                <ListItemText primary={'Inquilinos'} />
+                            </ListItem>
+                            <ListItem button onClick={() => { setComponent(3) }}>
+                                <ListItemIcon><EqualizerIcon /></ListItemIcon>
+                                <ListItemText primary={'Estatisticas'} />
+                            </ListItem>
+                        </>
+                        :
+                        sessionStorage.getItem("acesso") == 'adminMaster' ?
+                            <>
+                                <ListItem button onClick={() => { setComponent(4) }}>
+                                    <ListItemIcon><DashboardIcon /></ListItemIcon>
+                                    <ListItemText primary={'Dashdoard'} />
+                                </ListItem>
+                            </>
+                            :
+                            <>
+                                <ListItem button onClick={() => { setComponent(5) }}>
+                                    <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
+                                    <ListItemText primary={'Meus Arrendamentos'} />
+                                </ListItem>
+                            </>}
                 </List>
             </Drawer>
             <main className={classes.content}>
@@ -233,9 +253,13 @@ export default function MiniDrawer() {
                     : urlParams.get('component') == 1 ?
                         <Props />
                         : urlParams.get('component') == 2 ?
-                            <Lista /> : <BarChart />
+                            <Lista />
+                            : urlParams.get('component') == 3 ?
+                                <BarChart />
+                                : urlParams.get('component') == 4 ?
+                                    <Dashboard />
+                                    : ''
                 }
-                {/* <Dashboard /> */}
             </main>
         </div>
     );

@@ -35,11 +35,14 @@ export default function Snack({ severity, message, modal }) {
 
   return (
     <div className={classes.root} >
-      <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={6000} onClose={handleClose} >
-        <Alert onClose={handleClose} severity={severity} style={{ minWidth: '150px', marginTop: margin }}>
-          {message}
-        </Alert>
-      </Snackbar>
+      {
+        message &&
+        <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={6000} onClose={handleClose} >
+          <Alert onClose={handleClose} severity={severity} style={{ minWidth: '150px', marginTop: margin }}>
+            {message}
+          </Alert>
+        </Snackbar>
+      }
     </div>
   );
 }

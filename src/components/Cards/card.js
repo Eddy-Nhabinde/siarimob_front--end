@@ -40,11 +40,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MediaControlCard({ casa }) {
     const classes = useStyles();
-    const [open, setOpen] = useState(false)
+    const [open, setOpenModal] = useState(false)
 
     return (
         <>
-            <TransitionsModal open={open} setOpen={setOpen} casa={casa} />
+            <TransitionsModal open={open} setOpenModal={setOpenModal} casa={casa} />
             <Card className={classes.root}>
                 <div className={classes.details}>
                     <CardContent className={classes.content}>
@@ -58,7 +58,7 @@ export default function MediaControlCard({ casa }) {
                             {casa.preco}
                         </Typography>
                     </CardContent>
-                    <div style={{ width: '100px', margin: '24px' }} onClick={() => { setOpen(true) }} >
+                    <div style={{ width: '100px', margin: '24px' }} onClick={() => { setOpenModal(true) }} >
                         <Botao color='primary' text='Detalhes' />
                     </div>
                 </div>

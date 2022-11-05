@@ -21,6 +21,7 @@ export function Log() {
             .then((data) => {
                 if (data[1].id) {
                     sessionStorage.setItem("user_id", data[1].id);
+                    sessionStorage.setItem("acesso", data[1].acesso);
                     sessionStorage.setItem("token", data[0].original.access_token);
                 }
                 return data;
