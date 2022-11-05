@@ -37,7 +37,7 @@ export default function TransitionsModal({ open, setOpenModal, casa }) {
             setOpenModal(false);
             setOpenBackdrop(true)
 
-            let response = await HouseRequest(casa.dono_id)
+            let response = await HouseRequest(casa.dono_id, casa.id)
             if (response.sucesso) {
                 console.log(response.sucesso)
                 setOpenBackdrop(false)

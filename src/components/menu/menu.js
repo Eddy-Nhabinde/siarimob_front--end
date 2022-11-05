@@ -31,6 +31,9 @@ import { Dashboard } from '../../pages/adminDashboard/adminDash';
 import { useParams } from '../../hooks/QueryParams';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import MailIcon from '@material-ui/icons/Mail';
+import { Requests } from '../../pages/requisicoes/requisicoes';
+import { SitView } from '../../pages/situation/situation';
 
 const drawerWidth = 240;
 
@@ -211,6 +214,10 @@ export default function MiniDrawer() {
                                 <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
                                 <ListItemText primary={'Inquilinos'} />
                             </ListItem>
+                            <ListItem button onClick={() => { setComponent(6) }}>
+                                <ListItemIcon><MailIcon /></ListItemIcon>
+                                <ListItemText primary={'Requisicoes'} />
+                            </ListItem>
                             <ListItem button onClick={() => { setComponent(3) }}>
                                 <ListItemIcon><EqualizerIcon /></ListItemIcon>
                                 <ListItemText primary={'Estatisticas'} />
@@ -258,7 +265,11 @@ export default function MiniDrawer() {
                                 <BarChart />
                                 : urlParams.get('component') == 4 ?
                                     <Dashboard />
-                                    : ''
+                                    : urlParams.get('component') == 5 ?
+                                        <SitView />
+                                        : urlParams.get('component') == 6 ?
+                                            <Requests />
+                                            : ''
                 }
             </main>
         </div>

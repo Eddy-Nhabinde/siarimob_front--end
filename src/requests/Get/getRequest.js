@@ -1,13 +1,12 @@
-export function Request() {
+export function GetRequests() {
 
-    async function HouseRequest(id, casa_id) {
+    async function requisicoes() {
+
         const Query =
         {
-            dono_id: `${id}`,
-            casa_id: `${casa_id}`,
-            inquilino: sessionStorage.getItem("user_id")
+            dono_id: `${sessionStorage.getItem("user_id")}`
         }
-        let dados = fetch('http://127.0.0.1:8000/api/request-house', {
+        let dados = fetch('http://127.0.0.1:8000/api/all-requests', {
             method: 'POST',
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -24,5 +23,5 @@ export function Request() {
         return dados
     }
 
-    return { HouseRequest }
+    return { requisicoes }
 }
