@@ -118,7 +118,11 @@ export default function MiniDrawer() {
 
     useEffect(() => {
         if (!urlParams.get('component')) {
-            add('component', 0)
+            if (urlParams.get('casa_id')) {
+                add('component', 6)
+            } else {
+                add('component', 0)
+            }
         }
         (async () => {
             data.append('dono_id', '1')

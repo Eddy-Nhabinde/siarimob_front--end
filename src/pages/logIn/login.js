@@ -11,6 +11,7 @@ import { Log } from '../../requests/Post/login'
 import { BackdropContext } from '../../contexts/backdropContext'
 import { AlertContext } from '../../contexts/alertContext'
 import { useNavigate } from 'react-router-dom'
+import { useParams } from '../../hooks/QueryParams'
 
 export function Login() {
     const navigate = useNavigate();
@@ -25,6 +26,9 @@ export function Login() {
     const [normal, setNormal] = useState(true)
     const [message, setMessage] = useState(false)
     const [severity, setSeverity] = useState('warning')
+    const { useQuery } = useParams()
+    const urlParams = useQuery()
+
     let mail, pass, nome, apelido, contacto, dataNasc, conta, Cpass
 
     const email = (e) => {
@@ -96,7 +100,11 @@ export function Login() {
                     setOpen(true)
                     setMessage('Email ou senha errada')
                 } else {
-                    navigate('/home')
+                    if (urlParams.get('casa_id') != 0) {
+                        navigate('/home?casa_id=5&inq_id=7')
+                    } else {
+                        navigate('/home?')
+                    }
                     localStorage.setItem('token', response.access_token)
                 }
             })()

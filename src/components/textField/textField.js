@@ -19,6 +19,7 @@ export default function Input({ label, tipo, InputChanged, value }) {
         <form className={classes.root} noValidate autoComplete="off">
             <div>
                 <TextField
+                    placeholder={label}
                     type={tipo}
                     size='small'
                     id="filled-required"
