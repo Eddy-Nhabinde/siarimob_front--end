@@ -100,10 +100,10 @@ export function Login() {
                     setOpen(true)
                     setMessage('Email ou senha errada')
                 } else {
-                    if (urlParams.get('casa_id') != 0) {
-                        navigate('/home?casa_id=5&inq_id=7')
+                    if (urlParams.get('casa_id')) {
+                        navigate('/home?casa_id=' + urlParams.get('casa_id') + '&inq_id=' + urlParams.get('casa_id'))
                     } else {
-                        navigate('/home?')
+                        navigate('/home')
                     }
                     localStorage.setItem('token', response.access_token)
                 }

@@ -1,7 +1,7 @@
 import { Button, makeStyles, Paper } from "@material-ui/core";
 import React, { useEffect, useState } from 'react';
 import Input from "../../components/textField/textField";
-import { GetRequests } from "../../requests/Get/getRequest";
+import { GetRequests } from "../../requests/Get/Request";
 
 const useStyles = makeStyles({
     root: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
 export function Requests() {
     const classes = useStyles();
-    const { requisicoes } = GetRequests()
+    const { requisicoes, answerRequest } = GetRequests()
     const [req, setReq] = useState([])
     const [date, setDate] = useState('')
     const [Todas, setTodas] = useState(0)
@@ -42,7 +42,8 @@ export function Requests() {
 
     useEffect(() => {
         (async () => {
-            let response = await requisicoes(date, Todas)
+            let minhas = sessionStorage.getItem("acesso") == 'normal'
+            let response = await requisicoes(date, Todas, minhas)
             if (response.error) {
                 // setOpen(true)
                 // setMessage('Email ou senha errada')
@@ -51,6 +52,19 @@ export function Requests() {
             }
         })()
     }, [date, Todas])
+
+    function answer(operacao, id) {
+        (async () => {
+            let resp = operacao == 1 ? 'Aceite' : 'Negado'
+            let response = await answerRequest(resp, id)
+            if (response.error) {
+                // setOpen(true)
+                // setMessage('Email ou senha errada')
+            } else {
+                // setReq(response)
+            }
+        })()
+    }
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -69,6 +83,7 @@ export function Requests() {
                         if (requuisicao[0]) {
                             return (
                                 <Paper className={classes.root}>
+                                    <h4>{requuisicao[0].status}</h4>
                                     <img src={"http://localhost:8000/images/" + requuisicao[0].foto} style={{ borderRadius: '10px' }} />
                                     <table style={{ marginLeft: '10px', marginTop: '15px' }}>
                                         <tr>
@@ -96,12 +111,17 @@ export function Requests() {
                                             <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao[0].data}</h1></td>
                                         </tr>
                                     </table>
-                                    <Button style={{ width: '150px', marginTop: '13px' }} size='small' variant="contained" color="primary" disableElevation >
-                                        Aceitar
-                                    </Button>
-                                    <Button style={{ width: '150px', marginTop: '13px', marginLeft: '10px' }} size='small' variant="contained" color="secondary" disableElevation >
-                                        Recusar
-                                    </Button>
+                                    {
+                                        sessionStorage.getItem("acesso") != 'normal' &&
+                                        <>
+                                            <Button style={{ width: '150px', marginTop: '13px' }} size='small' variant="contained" color="primary" disableElevation onClick={() => { answer(1, requuisicao[0].reqId) }} >
+                                                Aceitar
+                                            </Button>
+                                            <Button style={{ width: '150px', marginTop: '13px', marginLeft: '10px' }} size='small' variant="contained" color="secondary" disableElevation onClick={() => { answer(0, requuisicao[0].reqId) }} >
+                                                Recusar
+                                            </Button>
+                                        </>
+                                    }
                                 </Paper>
                             )
                         }

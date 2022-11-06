@@ -34,6 +34,7 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import MailIcon from '@material-ui/icons/Mail';
 import { Requests } from '../../pages/requisicoes/requisicoes';
 import { SitView } from '../../pages/situation/situation';
+import SendIcon from '@material-ui/icons/Send';
 
 const drawerWidth = 240;
 
@@ -240,6 +241,10 @@ export default function MiniDrawer() {
                                 <ListItem button onClick={() => { setComponent(5) }}>
                                     <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
                                     <ListItemText primary={'Meus Arrendamentos'} />
+                                </ListItem>
+                                <ListItem button onClick={() => { setComponent(6) }}>
+                                    <ListItemIcon><SendIcon /></ListItemIcon>
+                                    <ListItemText primary={'Requisicoes Feitas'} />
                                 </ListItem>
                             </>}
                 </List>
