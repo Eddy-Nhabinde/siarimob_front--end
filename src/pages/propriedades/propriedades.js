@@ -94,7 +94,6 @@ export default function Props({ Casas }) {
             }
         })()
     }
-    console.log(listData)
 
     function Gravar(e) {
         e.preventDefault()
