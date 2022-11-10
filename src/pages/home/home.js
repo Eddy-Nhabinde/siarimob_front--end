@@ -9,7 +9,6 @@ import styles from './home.module.css'
 
 export function Home() {
     const [Casas, setCasas] = useState([])
-    const data = new FormData()
     const [BairroFilter, setBairroFilter] = useState("");
     const [TipoFilter, setTipoFilter] = useState("");
     const [PrecoFilter, setPrecoFilter] = useState("");
@@ -17,17 +16,10 @@ export function Home() {
 
     useEffect(() => {
         (async () => {
-            data.append('dono_id', '1')
-            if (BairroFilter) data.append('bairro', BairroFilter)
-
-            if (TipoFilter) data.append('tipo', TipoFilter)
-
-            if (PrecoFilter) data.append('preco', PrecoFilter)
-
-            let response = await GetProps(data)
+            let response = await GetProps(BairroFilter, TipoFilter, PrecoFilter, '')
 
             if (response) {
-                setCasas(response.data)
+                setCasas(response)
             }
         })()
     }, [BairroFilter, TipoFilter, PrecoFilter])

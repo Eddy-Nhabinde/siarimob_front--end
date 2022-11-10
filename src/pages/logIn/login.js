@@ -101,7 +101,7 @@ export function Login() {
                     setMessage('Email ou senha errada')
                 } else {
                     if (urlParams.get('casa_id')) {
-                        navigate('/home?casa_id=' + urlParams.get('casa_id') + '&inq_id=' + urlParams.get('casa_id'))
+                        navigate('/home?casa_id=' + urlParams.get('casa_id') + '&inq_id=' + urlParams.get('inq_id'))
                     } else {
                         navigate('/home')
                     }
@@ -130,7 +130,7 @@ export function Login() {
                             <h1>Senha</h1>
                         </td>
                         <td>
-                            <Input tipo='email' InputChanged={password} />
+                            <Input tipo='password' InputChanged={password} />
                         </td>
                     </tr>
                 </table>

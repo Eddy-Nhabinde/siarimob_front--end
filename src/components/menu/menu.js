@@ -102,22 +102,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MiniDrawer() {
-    const data = new FormData()
-
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
+    const [all, setall] = useState(true);
 
     const [Casas, setCasas] = useState([])
     const [BairroFilter, setBairroFilter] = useState("");
     const [TipoFilter, setTipoFilter] = useState("");
     const [PrecoFilter, setPrecoFilter] = useState("");
     const { add, removeAll, useQuery } = useParams()
-    const { GetProps } = Propss()
+    const { GetProps } = Propss(all)
     const urlParams = useQuery()
-    let page = urlParams.get('component')
 
     useEffect(() => {
+        setall(false)
         if (!urlParams.get('component')) {
             if (urlParams.get('casa_id')) {
                 add('component', 6)
@@ -126,17 +125,9 @@ export default function MiniDrawer() {
             }
         }
         (async () => {
-            data.append('dono_id', '1')
-            if (BairroFilter) data.append('bairro', BairroFilter)
-
-            if (TipoFilter) data.append('tipo', TipoFilter)
-
-            if (PrecoFilter) data.append('preco', PrecoFilter)
-
-            let response = await GetProps(data)
-
+            let response = await GetProps(BairroFilter, TipoFilter, PrecoFilter,'')
             if (response) {
-                setCasas(response.data)
+                setCasas(response)
             }
         })()
     }, [BairroFilter, TipoFilter, PrecoFilter])

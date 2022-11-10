@@ -1,12 +1,21 @@
-import axios from "axios"
-
-export const Propss = () => {
-
-    async function GetProps(data, EstadoFilter = 1) {
-
-        let dados = axios.post(`http://127.0.0.1:8000/api/all-props/${EstadoFilter}`,
-            data
-        )
+export const Propss = (all) => {
+    async function GetProps(BairroFilter, TipoFilter, Valor, EstadoFilter = 1) {
+        const query = {
+            dono_id: !all && sessionStorage.getItem("user_id"),
+            bairro: BairroFilter && BairroFilter,
+            tipo: TipoFilter && TipoFilter,
+            Valor: Valor && Valor
+        }
+        let dados = fetch(`http://127.0.0.1:8000/api/all-props/${EstadoFilter}`, {
+            method: 'POST',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(query),
+        })
+            .then((response) => response.json())
             .then((data) => {
                 return data;
             })

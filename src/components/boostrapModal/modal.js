@@ -22,10 +22,10 @@ export function MyVerticallyCenteredModal(props) {
     const [SomethingID, setSomethingID] = useState(null)
     const [severity, setSeverity] = useState('warning')
     const { saveDistrict, saveProvince, savePRopType, SaveBairro } = saveDisTrictProvinceBairros()
-    let nome;
+    const [nome, setNome] = useState(null)
 
     const Name = (e) => {
-        nome = e.target.value
+        setNome(e.target.value)
     }
 
     useEffect(() => {

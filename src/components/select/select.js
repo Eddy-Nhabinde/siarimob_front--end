@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SelectM({ Label, data, setValue }) {
+export default function SelectM({ Label, data=[], setValue }) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         age: '',

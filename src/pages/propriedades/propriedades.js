@@ -109,6 +109,8 @@ export default function Props({ Casas }) {
                 data.append('Valor', Valor)
                 data.append('Desc', Desc)
                 data.append('TipoValue', TipoValue)
+                data.append('donoId', sessionStorage.getItem("user_id"))
+
 
                 let response = await SavingProp(data)
                 if (response.error) {
@@ -130,17 +132,10 @@ export default function Props({ Casas }) {
 
     useEffect(() => {
         (async () => {
-            data.append('dono_id', '1')
-            if (BairroFilter) data.append('bairro', BairroFilter)
-
-            if (TipoFilter) data.append('tipo', TipoFilter)
-
-            if (Valor) data.append('preco', Valor)
-
-            let response = await GetProps(data, EstadoFilter)
+            let response = await GetProps(BairroFilter,TipoFilter,Valor, EstadoFilter)
 
             if (response) {
-                setListData(response.data)
+                setListData(response)
             }
         })()
     }, [BairroFilter, TipoFilter, EstadoFilter, Valor])
@@ -203,20 +198,21 @@ export default function Props({ Casas }) {
                     </thead>
                     <tbody>
                         {
-                            listData?.map((val, id) => {
+                            listData[0]?.map((val, id) => {
+                                
                                 return (
                                     <tr>
                                         <td scope="row">{id + 1}</td>
-                                        <td>{val[0]?.tipoNome}</td>
-                                        <td>{val[0]?.nome}</td>
-                                        <td>{val[0]?.status}</td>
-                                        <td>{val[0]?.preco}</td>
-                                        <td>{val[0]?.descricao}</td>
+                                        <td>{val.tipoNome}</td>
+                                        <td>{val.nome}</td>
+                                        <td>{val.status}</td>
+                                        <td>{val.preco}</td>
+                                        <td>{val.descricao}</td>
                                         <td style={{ width: '20%' }}>
                                             {
-                                                val[0]?.status != 'Ocupado' && <> <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
+                                                val.status != 'Ocupado' && <> <button style={{ marginRight: '15px' }} type="button" class="btn btn-primary">Editar</button>
                                                     <button type="button" class="btn btn-danger">Eliminar</button></>
-                                           }
+                                            }
                                         </td>
                                     </tr>
                                 )
