@@ -1,4 +1,5 @@
 export const Propss = (all) => {
+
     async function GetProps(BairroFilter, TipoFilter, Valor, EstadoFilter = 1) {
         const query = {
             dono_id: !all && sessionStorage.getItem("user_id"),

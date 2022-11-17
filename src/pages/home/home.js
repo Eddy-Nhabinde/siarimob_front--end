@@ -12,7 +12,7 @@ export function Home() {
     const [BairroFilter, setBairroFilter] = useState("");
     const [TipoFilter, setTipoFilter] = useState("");
     const [PrecoFilter, setPrecoFilter] = useState("");
-    const { GetProps } = Propss()
+    const { GetProps } = Propss(true)
 
     useEffect(() => {
         (async () => {
@@ -36,7 +36,9 @@ export function Home() {
                     {
                         Casas?.[0]?.map((val, id) => {
                             return (
-                                <MediaCard casa={val} />
+                                <div>
+                                    <MediaCard casa={val} />
+                                </div>
                             )
                         })
                     }

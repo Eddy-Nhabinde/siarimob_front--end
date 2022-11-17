@@ -53,9 +53,8 @@ export function Requests() {
                 // setOpen(true)
                 // setMessage('Email ou senha errada')
             } else {
-                setReq(response)
+                setReq(response[0])
             }
-            console.log(response, 4)
         })()
     }, [])
 
@@ -67,7 +66,8 @@ export function Requests() {
                 // setOpen(true)
                 // setMessage('Email ou senha errada')
             } else {
-                setReq(response)
+                setReq(response[0])
+                console.log(response[0], 4)
             }
         })()
     }, [date, Todas])
@@ -171,61 +171,59 @@ export function Requests() {
             <div style={{ display: 'grid', gridTemplateColumns: '33% 33% 33%', justifyContent: 'space-around', marginTop: '-20px' }}>
                 {
                     req && req.map((requuisicao) => {
-                        if (requuisicao[0]) {
-                            return (
-                                <Paper className={classes.root}>
-                                    <h4>{requuisicao[0].status}</h4>
-                                    <img src={"http://localhost:8000/images/" + requuisicao[0].foto} style={{ borderRadius: '10px' }} />
-                                    <table style={{ marginLeft: '10px', marginTop: '15px' }}>
-                                        <tr>
-                                            <td><h1 style={{ fontWeight: 'bold' }} >Bairro:</h1></td>
-                                            <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao[0].nomeBairro}</h1></td>
-                                        </tr>
-                                        <tr>
-                                            <td><h1 style={{ fontWeight: 'bold' }} >Tipo:</h1></td>
-                                            <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao[0].nomeTipo}</h1></td>
-                                        </tr>
-                                        <tr>
-                                            <td><h1 style={{ fontWeight: 'bold' }} >Preco:</h1></td>
-                                            <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao[0].preco}</h1></td>
-                                        </tr>
-                                        <tr>
-                                            <td><h1 style={{ fontWeight: 'bold' }} >Requerente:</h1></td>
-                                            <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao[0].nome} {requuisicao[0].apelido}</h1></td>
-                                        </tr>
-                                        <tr>
-                                            <td><h1 style={{ fontWeight: 'bold' }} >Contacto:</h1></td>
-                                            <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao[0].contacto}</h1></td>
-                                        </tr>
-                                        <tr>
-                                            <td><h1 style={{ fontWeight: 'bold' }} >Data:</h1></td>
-                                            <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao[0].data}</h1></td>
-                                        </tr>
-                                    </table>
-                                    {
-                                        sessionStorage.getItem("acesso") != 'normal' ?
-                                            !!(requuisicao[0].status == 'Pendente') &&
-                                            <>
-                                                <Btn style={{ width: '150px', marginTop: '13px' }} size='small' variant="contained" color="primary" disableElevation onClick={() => { answer(1, requuisicao[0].reqId) }} >
-                                                    Aceitar
+                        return (
+                            <Paper className={classes.root}>
+                                <h4>{requuisicao.status}</h4>
+                                <img src={"http://localhost:8000/images/" + requuisicao.foto} style={{ borderRadius: '10px' }} />
+                                <table style={{ marginLeft: '10px', marginTop: '15px' }}>
+                                    <tr>
+                                        <td><h1 style={{ fontWeight: 'bold' }} >Bairro:</h1></td>
+                                        <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao.nomeBairro}</h1></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h1 style={{ fontWeight: 'bold' }} >Tipo:</h1></td>
+                                        <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao.nomeTipo}</h1></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h1 style={{ fontWeight: 'bold' }} >Preco:</h1></td>
+                                        <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao.preco}</h1></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h1 style={{ fontWeight: 'bold' }} >Requerente:</h1></td>
+                                        <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao.nome} {requuisicao.apelido}</h1></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h1 style={{ fontWeight: 'bold' }} >Contacto:</h1></td>
+                                        <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao.contacto}</h1></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h1 style={{ fontWeight: 'bold' }} >Data:</h1></td>
+                                        <td style={{ paddingLeft: '50px' }} ><h1>{requuisicao.data}</h1></td>
+                                    </tr>
+                                </table>
+                                {
+                                    sessionStorage.getItem("acesso") != 'normal' ?
+                                        !!(requuisicao.status == 'Pendente') &&
+                                        <>
+                                            <Btn style={{ width: '150px', marginTop: '13px' }} size='small' variant="contained" color="primary" disableElevation onClick={() => { answer(1, requuisicao.reqId) }} >
+                                                Aceitar
+                                            </Btn>
+                                            <Btn style={{ width: '150px', marginTop: '13px', marginLeft: '10px' }} size='small' variant="contained" color="secondary" disableElevation onClick={() => { answer(0, requuisicao.reqId) }} >
+                                                Recusar
+                                            </Btn>
+                                        </>
+                                        :
+                                        <>
+                                            {
+                                                !!(requuisicao.status != 'Completo' & requuisicao.status != 'Negado' & requuisicao.status != 'Pendente') &&
+                                                <Btn onClick={() => { setModalShow(true); setpreco(requuisicao.preco); setCasaId(requuisicao.propId); setRequid(requuisicao.reqId) }} style={{ width: '150px', marginTop: '13px' }} size='small' variant="contained" color="primary" disableElevation >
+                                                    Completar
                                                 </Btn>
-                                                <Btn style={{ width: '150px', marginTop: '13px', marginLeft: '10px' }} size='small' variant="contained" color="secondary" disableElevation onClick={() => { answer(0, requuisicao[0].reqId) }} >
-                                                    Recusar
-                                                </Btn>
-                                            </>
-                                            :
-                                            <>
-                                                {
-                                                    !!(requuisicao[0].status != 'Completo' & requuisicao[0].status != 'Negado') &&
-                                                    <Btn onClick={() => { setModalShow(true); setpreco(requuisicao[0].preco); setCasaId(requuisicao[0].propId); setRequid(requuisicao[0].reqId) }} style={{ width: '150px', marginTop: '13px' }} size='small' variant="contained" color="primary" disableElevation >
-                                                        Completar
-                                                    </Btn>
-                                                }
-                                            </>
-                                    }
-                                </Paper>
-                            )
-                        }
+                                            }
+                                        </>
+                                }
+                            </Paper>
+                        )
                     })
                 }
             </div>

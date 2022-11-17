@@ -125,7 +125,7 @@ export default function MiniDrawer() {
             }
         }
         (async () => {
-            let response = await GetProps(BairroFilter, TipoFilter, PrecoFilter,'')
+            let response = await GetProps(BairroFilter, TipoFilter, PrecoFilter, '')
             if (response) {
                 setCasas(response)
             }
@@ -218,26 +218,22 @@ export default function MiniDrawer() {
                                 <ListItemIcon><EqualizerIcon /></ListItemIcon>
                                 <ListItemText primary={'Estatisticas'} />
                             </ListItem>
+                            <ListItem button onClick={() => { setComponent(4) }}>
+                                <ListItemIcon><DashboardIcon /></ListItemIcon>
+                                <ListItemText primary={'Dashdoard'} />
+                            </ListItem>
                         </>
                         :
-                        sessionStorage.getItem("acesso") == 'adminMaster' ?
-                            <>
-                                <ListItem button onClick={() => { setComponent(4) }}>
-                                    <ListItemIcon><DashboardIcon /></ListItemIcon>
-                                    <ListItemText primary={'Dashdoard'} />
-                                </ListItem>
-                            </>
-                            :
-                            <>
-                                <ListItem button onClick={() => { setComponent(5) }}>
-                                    <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
-                                    <ListItemText primary={'Meus Arrendamentos'} />
-                                </ListItem>
-                                <ListItem button onClick={() => { setComponent(6) }}>
-                                    <ListItemIcon><SendIcon /></ListItemIcon>
-                                    <ListItemText primary={'Requisicoes Feitas'} />
-                                </ListItem>
-                            </>}
+                        <>
+                            <ListItem button onClick={() => { setComponent(5) }}>
+                                <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
+                                <ListItemText primary={'Meus Arrendamentos'} />
+                            </ListItem>
+                            <ListItem button onClick={() => { setComponent(6) }}>
+                                <ListItemIcon><SendIcon /></ListItemIcon>
+                                <ListItemText primary={'Requisicoes Feitas'} />
+                            </ListItem>
+                        </>}
                 </List>
             </Drawer>
             <main className={classes.content}>
@@ -251,7 +247,9 @@ export default function MiniDrawer() {
                             {
                                 Casas?.[0]?.map((val) => {
                                     return (
-                                        <MediaCard casa={val} />
+                                        <div>
+                                            <MediaCard casa={val} />
+                                        </div>
                                     )
                                 })
                             }
